@@ -1,5 +1,6 @@
-# DMK Server
-![](https://img.shields.io/badge/Python-3.10-blue)
+# Cobra
+
+![](https://img.shields.io/badge/Python-3.10.9-blue)
 ![](https://img.shields.io/badge/Django-4.1.5-%2344B78B)
 ![](https://img.shields.io/badge/REST%20framework-3.13.1-%23A30000)
 ![](https://img.shields.io/badge/Swagger-OpenAPI%202.0-%23aaaa00)
@@ -15,18 +16,22 @@ This is the list of the installed features :
 2. **drf-yasg** : for the generation of a documentation of the API in real `Swagger/OpenAPI 2.0 specifications` from a `Django Rest Framework` API.
 3. **Django CORS Headers** : it's a security mechanism that `allows one domain to access` resources hosted on `another domain`.
 
-## Installation and configuration
 
-### Install `python3 `
+## Installation
+We must install three (03) programs:
+1. `Python3` runtime;
+2. Python virtual environment `venv`;
+3. Database manager `PostgreSQL`;
+4. Getting of project repository.
+
+### Install `python3`
 
 ```sh
-sudo apt install python3;\
-sudo apt install python3-pip
+sudo apt install python3 python3-pip
 ```
 
-You have to make sure of the version of python that is installed. The version of python
-used is `python 3.8.10`.
-
+You have to make sure of the version of python that is installed.
+The version of python used is `python 3.10.9`.
 
 ### Install venv
 You can install a python virtualenv program in two different ways.
@@ -41,14 +46,30 @@ OR
 sudo pip3 install virtualenv
 ```
 
+### Install `PostgreSQL`
+
+```sh
+sudo apt install postgresql postgresql-contrib
+```
+
+For using a `spacial database`, we can install the following extension:
+
+```sh
+# PostGIS is an extension of PostgreSQL
+# that allows to process the spacial data like the Polygons,
+# the Points, ...
+sudo apt install postgis
+```
+
 ### Getting of project repository
-You can clone this repository everywhere you want in your machine, with the following command lines:
+You can clone this repository everywhere you want in your machine,
+with the following command lines:
 
 ```sh
 git clone https://github.com/mokira3d48/cobra.git myapp && cd myapp
 ```
 
-In this cloned directory, you will see the following structure :
+In this cloned directory, you will see the following structure:
 
 ```
 .
@@ -67,9 +88,14 @@ In this cloned directory, you will see the following structure :
 2 directories, 9 files
 ```
 
-### Create virtual environment
-In your project root, if you have not already done so, run one of the following commands to create 
-a virtual environment.
+## Configuration
+1. Setting virtual environment;
+2. Creating and setting of PostgreSQL database;
+3. Dependences installation.
+
+### Setting virtual environment
+1. In your project root, if you have not already done so,
+run one of the following commands to create a virtual environment.
 
 ```sh
 python3 -m venv env
@@ -81,22 +107,21 @@ OR
 virtualenv env -p python3
 ```
 
-### Launch environment
+2. Launch environment
 
 ```sh
 source env/bin/activate
 ```
 
-### Dependences installation
-You must execute the following command to install the basic dependences :
+3. You must execute the following command to install the basic dependences:
 
 ```sh
 pip install -r requirements.txt
 ```
 
-### Creating of setting of PostgreSQL database
-The following `SQL` command lines allow to create a `PostgreSQL` database
-for your application:
+### Creating and setting of PostgreSQL database
+The following `SQL` command lines allow to create a `PostgreSQL`
+database for your application:
 
 ```sh
 # To connect to PostgreSQL with ROOT user:
@@ -170,7 +195,7 @@ PORT=5432
 
 > If port `5432` does not work, then try port `5433`.
 
-### Launching the server
+## Launching the server
 - Execute the following command lines to make migrations of models into database. 
 It's assumed that you are currently in project directory root `cobra`.
 
@@ -204,7 +229,7 @@ Running migrations:
 ./server/manage.py createsuperuser
 ```
 
-- Finally to start server, you must execute the following command line :
+- Finally to start server, you must execute the following command line:
 
 ```sh
 ./server/manage.py runserver
@@ -225,7 +250,7 @@ Quit the server with CONTROL-C.
 ```
 
 We cant go it at this local host link [](http://127.0.0.1:8000/) or [](http://localhost:8000). <br/>
-You can change the IP address and the port of the server with the following command line :
+You can change the IP address and the port of the server with the following command line:
 
 ```sh
 # With this command, we cant make the server listens
@@ -248,7 +273,7 @@ Quit the server with CONTROL-C.
 ```
 
 All work with successfully ! <br/>
-To access it in this cas, you must execute the following command line, in first :
+To access it in this cas, you must execute the following command line, in first:
 
 ```sh
 # IF YOU ARE USING LINUX
@@ -259,7 +284,7 @@ ifconfig
 
 > For the people using **Windows**, use `ipconfig` insted of the command line above.
 
-We cant go it at this local host link [](http://yourip:8080/).
+We cant go it at this local host [link](http://yourip:8080/).
 
 ## Usage
 
@@ -277,19 +302,22 @@ You can define  a list of domains that will be allowed to access the resources o
 # ...
 
 CORS_ALLOWED_ORIGINS = [
-	'http://localhost:4200',
-	'http://192.168.9.102:3000',
-];
+    'http://localhost:4200',
+    'http://192.168.9.102:3000',
+]
 
 ```
 
-The above setting will permit the server to allow all application hosted at `http://localhost:4200` and `http://192.168.9.102:3000` to access to resources of your server. By default, we have the following configuration is already defined :
+The above setting will permit the server to allow all application hosted at 
+`http://localhost:4200` and `http://192.168.9.102:3000` 
+to access to resources of your server. By default, 
+we have the following configuration is already defined :
 
 ```python
 # ...
 
-CORS_ORIGIN_ALLOW_ALL  = True;
-CORS_ALLOW_CREDENTIALS = True;
+CORS_ORIGIN_ALLOW_ALL = True
+CORS_ALLOW_CREDENTIALS = True
 
 ```
 
@@ -309,17 +337,17 @@ from rest_framework import routers, serializers, viewsets
 # Serializers define the API representation.
 class UserSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
-        model = User;
-        fields = ['url', 'username', 'email', 'is_staff'];
+        model = User
+        fields = ['url', 'username', 'email', 'is_staff']
 
 # ViewSets define the view behavior.
 class UserViewSet(viewsets.ModelViewSet):
-    queryset = User.objects.all();
-    serializer_class = UserSerializer;
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
 
 # Routers provide an easy way of automatically determining the URL conf.
-router = routers.DefaultRouter();
-router.register(r'users', UserViewSet);
+router = routers.DefaultRouter()
+router.register(r'users', UserViewSet)
 
 
 # ...
@@ -344,7 +372,7 @@ We can use the  `JWT authentication` for all authentications in your API.
 pip install djangorestframework-simplejwt
 ```
 
-2. Setting of  `DEFAULT_AUTHENTICATION_CLASSES` to `JWTAuthentication` class.
+2. Setting of `DEFAULT_AUTHENTICATION_CLASSES` to `JWTAuthentication` class.
 
 ```python
 # REST framework settings
@@ -353,15 +381,15 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
-    
+
     # ...
 
-};
+}
 
 ```
 
 3. Then, you can configurate its functioning using the following source code that you will inserte 
-   into `server/core/settings.py` file :
+   into `server/core/settings.py` file:
 
 ```python
 from datetime import timedelta
@@ -401,7 +429,9 @@ SIMPLE_JWT = {
 }
 
 ```
-4. Insert the following source code into `server/core/urls.py` for example, to use the authentication API that is already available by default in this package.
+4. Insert the following source code into `server/core/urls.py` 
+for example, to use the authentication API that is already available 
+by default in this package.
 
 ```python
 # ...
@@ -442,41 +472,43 @@ from myapp.serializers import UserSerializer
 
 
 class UserAPI(viewsets.ViewSet):
-	"""
-	Representation of the users API.
-	"""
-	permission_classes = (permissions.IsAuthenticated,);
+    """Representation of the users API."""
+    permission_classes = (permissions.IsAuthenticated,);
 
-	# Here is the setting of API description in the documentation
-	@swagger_auto_schema(
-		operation_description=(
-			"This method returns the user object that corresponds "
-			"to the current user."
-		),
-		responses={
+    # Here is the setting of API description in the documentation
+    @swagger_auto_schema(
+        operation_description=(
+            "This method returns the user object that corresponds "
+            "to the current user."
+        ),
+        responses={
             200: UserSerializer,
             400: "Bad request!",
             404: "Not Found!",
         }
-	)
+    )
     def list(self, request):
-    	"""
-    	Redefined function to perform our operation of user list
-    	retreiving.
-    	"""
-        user = User.objects.get(username=request.user);
-        user_data = UserSerializer(user).data;
-        return response.Response(user_data);
+        """Getting the list.
+
+        Redefined function to perform our operation of user list
+        retreiving.
+        """
+        user = User.objects.get(username=request.user)
+        user_data = UserSerializer(user).data
+        return response.Response(user_data)
 
 ```
 
 > `swagger_auto_schema()` is used in decoration for `list()` function.
 > - **operation_description** is used to give a description to this method.
-> - **responses** is used to specify the different messages or returns for each server code.
+> - **responses** is used to specify the different messages or returns
+> for each server code.
 
 
 ### Using cache with apiview and viewsets
-Django provides a `method_decorator` to use decorators with class based views. This can be used with other cache decorators such as `cache_page`, `vary_on_cookie` and `vary_on_headers`.
+Django provides a `method_decorator` to use decorators
+with class based views. This can be used with other cache
+decorators such as `cache_page`, `vary_on_cookie` and `vary_on_headers`.
 
 ```python
 from django.utils.decorators import method_decorator
@@ -496,8 +528,8 @@ class UserViewSet(viewsets.ViewSet):
     def list(self, request, format=None):
         content = {
             'user_feed': model_to_dict(request.user)
-        };
-        return Response(content);
+        }
+        return Response(content)
 
 
 class ProfileView(APIView):
@@ -508,7 +540,7 @@ class ProfileView(APIView):
         content = {
             'user_feed': model_to_dict(request.user)
         };
-        return Response(content);
+        return Response(content)
 
 
 class PostView(APIView):
@@ -518,9 +550,14 @@ class PostView(APIView):
         content = {
             'title': 'Post title',
             'body': 'Post content'
-        };
-        return Response(content);
+        }
+        return Response(content)
 
 ```
 
-> **NOTE** : The `cache_page` decorator only caches the `GET` and `HEAD` responses with `status 200`.
+> **NOTE** : The `cache_page` decorator only 
+> caches the `GET` and `HEAD` responses with `status 200`.
+
+<br/>
+
+
