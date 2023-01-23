@@ -2,7 +2,7 @@
 
 ![](https://img.shields.io/badge/Python-3.10.9-blue)
 ![](https://img.shields.io/badge/Django-4.1.5-%2344B78B)
-![](https://img.shields.io/badge/REST%20framework-3.13.1-%23A30000)
+![](https://img.shields.io/badge/REST%20Framework-3.14.0-%23A30000)
 ![](https://img.shields.io/badge/Swagger-OpenAPI%202.0-%23aaaa00)
 ![](https://img.shields.io/badge/LICENSE-MIT-%2300557f)
 
@@ -288,11 +288,100 @@ We cant go it at this local host [link](http://yourip:8080/).
 
 ## Usage
 
-1. Cross Origin Resource Sharing
-2. Usage example of Django REST Framework
-3. JWT authentication with Django REST Framework
-4. API documentation programming
-5. Using cache with apiview and viewsets
+1. PostGIS
+2. Cross Origin Resource Sharing
+3. Usage example of Django REST Framework
+4. JWT authentication with Django REST Framework
+5. API documentation programming
+6. Using cache with apiview and viewsets
+
+
+<br>
+
+### PostGIS
+
+1. Create a django database model like following:
+
+```python
+# from django.db import models
+from django.contrib.gis.db import models
+
+
+class WorldBorder(models.Model):
+    # Regular Django fields corresponding to the attributes in the
+    # world borders shapefile.
+    name = models.CharField(max_length=50, unique=True)
+    area = models.IntegerField()
+    pop2005 = models.IntegerField('Population 2005')
+    fips = models.CharField('FIPS Code', max_length=2, null=True)
+    iso2 = models.CharField('2 Digit ISO', max_length=2)
+    iso3 = models.CharField('3 Digit ISO', max_length=3)
+    un = models.IntegerField('United Nations Code')
+    region = models.IntegerField('Region Code')
+    subregion = models.IntegerField('Sub-Region Code')
+    lon = models.FloatField()
+    lat = models.FloatField()
+
+    # GeoDjango-specific: a geometry field (MultiPolygonField)
+    mpoly = models.MultiPolygonField()
+
+    # Returns the string representation of the model.
+    def __str__(self):
+        """Representation in string.
+        Returns:
+            str: return a string like France (34.453, -8.9877)
+        """
+        return "{} ({}, {})".format(self.name, self.lat, self.lon)
+
+```
+
+> **NOTE**: If you use a spacial database, you must use `django.contrib.gis.db` inside of
+> `django.db`.
+
+2. Create a new file named `load.py` into your package application and write
+the following source code:
+
+```python
+"""Data loading module.
+
+.. _For more information on this file, see:
+https://docs.djangoproject.com/en/4.1/ref/contrib/gis/tutorial/#layermapping
+"""
+
+from pathlib import Path
+from django.contrib.gis.utils import LayerMapping
+from .models import WorldBorder
+
+
+WORLD_MAPPING = {
+    'fips': 'FIPS',
+    'iso2': 'ISO2',
+    'iso3': 'ISO3',
+    'un': 'UN',
+    'name': 'NAME',
+    'area': 'AREA',
+    'pop2005': 'POP2005',
+    'region': 'REGION',
+    'subregion': 'SUBREGION',
+    'lon': 'LON',
+    'lat': 'LAT',
+    'mpoly': 'MULTIPOLYGON',
+}
+WORLD_SHP = Path(__file__).resolve().parent / 'data'\
+     / 'TM_WORLD_BORDERS-0.3.shp'
+
+
+def run(verbose=True):
+    """Function of data loading into database.
+
+    Args:
+        verbose (bool): Specifies if the loading process 
+            will be verbose or not.
+    """
+    lm = LayerMapping(WorldBorder, WORLD_SHP, WORLD_MAPPING, transform=False)
+    lm.save(strict=True, verbose=verbose)
+
+```
 
 
 ### Cross Origin Resource Sharing (CORS)
@@ -557,6 +646,35 @@ class PostView(APIView):
 
 > **NOTE** : The `cache_page` decorator only 
 > caches the `GET` and `HEAD` responses with `status 200`.
+
+### Hosting
+
+```sh
+openssl req -new -newkey rsa:4096 -x509 -sha256 -days 365 -nodes -out path_to_certificate.crt -keyout path_to_private_key.key
+```
+
+```conf
+server {
+    root /home/mokira3d48/cobra/;
+    listen              443 ssl;
+    server_name         cobra.com;
+    # server_name         ip_address;
+    keepalive_timeout   70;
+
+    ssl_certificate     /path_to_certificate.crt;
+    ssl_certificate_key /path_to_private_key.key;
+    ssl_protocols       TLSv1 TLSv1.1 TLSv1.2;
+    ssl_ciphers         HIGH:!aNULL:!MD5;
+        
+    location / {
+        proxy_set_header Host $http_host;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_redirect off;
+        proxy_pass http://127.0.0.1:8000;
+    }
+        
+}
+```
 
 <br/>
 
