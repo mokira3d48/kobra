@@ -195,6 +195,13 @@ PORT=5432
 
 > If port `5432` does not work, then try port `5433`.
 
+3. Execute the following command line, to apply the configs made in the `server/.env` file.
+
+```sh
+source ./server/.env
+```
+
+
 ## Launching the server
 - Execute the following command lines to make migrations of models into database. 
 It's assumed that you are currently in project directory root `cobra`.
