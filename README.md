@@ -5,7 +5,7 @@
 ![](https://img.shields.io/badge/REST%20Framework-3.14.0-%23A30000)
 ![](https://img.shields.io/badge/Swagger-OpenAPI%202.0-%23aaaa00)
 ![](https://img.shields.io/badge/LICENSE-MIT-%2300557f)
-![](https://img.shields.io/badge/lastest-2023--03--19-success)
+![](https://img.shields.io/badge/lastest-2023--03--22-success)
 ![](https://img.shields.io/badge/contact-dr.mokira%40gmail.com-blueviolet)
 
 A custom server program based on the **Django framework** designed 
