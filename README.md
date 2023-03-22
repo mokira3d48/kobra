@@ -18,6 +18,44 @@ This is the list of the installed features :
 2. **drf-yasg** : for the generation of a documentation of the API in real `Swagger/OpenAPI 2.0 specifications` from a `Django Rest Framework` API.
 3. **Django CORS Headers** : it's a security mechanism that `allows one domain to access` resources hosted on `another domain`.
 
+<details id="table-content" open>
+    <summary>Table des Contenus</summary>
+    <ul>
+        <li><a href="#installation">Installation</a>
+            <ul>
+                <li><a href="#install-python3">Install python3</a></li>
+                <li><a href="#install-venv">Install venv</a></li>
+                <li><a href="#install-postgresql">Install PostgreSQL</a></li>
+                <li><a href="#getting-of-project-repository">Getting of project repository</a></li>
+            </ul>
+        </li>
+        <li><a href="#configuration">Configuration</a>
+            <ul>
+               <li><a href="#setting-virtual-environment">Setting virtual environment</a></li>
+               <li><a href="#creating-and-setting-of-postgresql-database">Creating and setting of PostgreSQL database</a>
+                    <ul>
+                        <li><a href="#env-config">.env config</a></li>
+                    </ul>
+               </li>
+               <li><a href="#launching-the-server">Launching the server</a></li>
+            </ul>
+        </li>
+        <li><a href="#launching-the-server">Launching the server</a></li>
+        <li><a href="#usage">Usage</a>
+            <ul>
+                <li><a href="#postgis">PostGIS</a></li>
+                <li><a href="#cross-origin-resource-sharing-cors">Cross Origin Resource Sharing (CORS)</a></li>
+                <li><a href="#usage-example-of-django-rest-framework">Usage example of Django REST Framework</a></li>
+                <li><a href="#jwt-authentication-with-django-rest-framework">JWT authentication with Django REST Framework</a></li>
+                <li><a href="#api-documentation-programming">API documentation programming</a></li>
+                <li><a href="#using-cache-with-apiview-and-viewsets">Using cache with apiview and viewsets</a><li>
+            </ul>
+        </li>
+    </ul>
+
+</details>
+<br/>
+
 
 ## Installation
 We must install three (03) programs:
@@ -26,7 +64,7 @@ We must install three (03) programs:
 3. Database manager `PostgreSQL`;
 4. Getting of project repository.
 
-### Install `python3`
+### Install python3
 
 ```sh
 sudo apt install python3 python3-pip
@@ -48,7 +86,7 @@ OR
 sudo pip3 install virtualenv
 ```
 
-### Install `PostgreSQL`
+### Install PostgreSQL
 
 ```sh
 sudo apt install postgresql postgresql-contrib
@@ -655,35 +693,6 @@ class PostView(APIView):
 
 > **NOTE** : The `cache_page` decorator only 
 > caches the `GET` and `HEAD` responses with `status 200`.
-
-### Hosting
-
-```sh
-openssl req -new -newkey rsa:4096 -x509 -sha256 -days 365 -nodes -out path_to_certificate.crt -keyout path_to_private_key.key
-```
-
-```conf
-server {
-    root /home/mokira3d48/cobra/;
-    listen              443 ssl;
-    server_name         cobra.com;
-    # server_name         ip_address;
-    keepalive_timeout   70;
-
-    ssl_certificate     /path_to_certificate.crt;
-    ssl_certificate_key /path_to_private_key.key;
-    ssl_protocols       TLSv1 TLSv1.1 TLSv1.2;
-    ssl_ciphers         HIGH:!aNULL:!MD5;
-        
-    location / {
-        proxy_set_header Host $http_host;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_redirect off;
-        proxy_pass http://127.0.0.1:8000;
-    }
-        
-}
-```
 
 <br/>
 
