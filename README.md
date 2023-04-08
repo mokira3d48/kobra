@@ -329,6 +329,8 @@ ifconfig
 
 We cant go it at this local host **http://yourip:8080**.
 
+![](./images/swagger.png)
+
 
 ## Usage
 For the differents usages, you can consult the different documentation
