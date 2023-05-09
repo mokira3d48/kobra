@@ -111,7 +111,7 @@ sudo pip3 install virtualenv
 
 ```sh
 # ~$
-sudo apt install postgresql postgresql-contrib
+sudo apt install postgresql postgresql-contrib libpq-dev
 ```
 
 For using a *spacial database*, we can install the following extension:
