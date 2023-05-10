@@ -50,7 +50,7 @@ domain to access** resources hosted on **another domain**.-->
 
 
 <details id="table-content" open>
-    <summary>Table des Contenus</summary>
+    <summary>Table of contents</summary>
     <ul>
         <li><a href="./docs/dev.md#1-dev-installation">1. Dev installation</a>
             <ul>
@@ -71,6 +71,7 @@ domain to access** resources hosted on **another domain**.-->
                 <li><a href="./docs/dev.md#15-lauching-the-server">1.5 Launching the dev server</a></li>
             </ul>
         </li>
+        <li><a href="./docs/postgis.md#2-spatial-database-with-postgis">2. Spatial database with PostGIS</a></li>
     </ul>
 </details>
 

@@ -1,4 +1,4 @@
-## PostGIS
+## 2. Spatial database with PostGIS
 1. For using a *spacial database*, we can install the following extension:
 
 ###### `>_ cmd@01:~$`
@@ -10,12 +10,12 @@ sudo apt install postgis
 ```
 
 2. And then, we must to connect to the application database,
-here nammed `cbrdb` and create the `postgis` extensions on it.
+here nammed `kbrdb` and create the `postgis` extensions on it.
 
 ###### `</> SQL [01]`
 ```sql
 -- connect to cbrdb.
-\c cbrdb;
+\c kbrdb;
 
 -- Only you are using a spatial database
 CREATE EXTENSION postgis;
@@ -105,3 +105,10 @@ def run(verbose=True):
     lm.save(strict=True, verbose=verbose)
 
 ```
+
+
+<div align="center">
+
+[:house: **Retour à l'accueil**](../README.md)
+
+</div>

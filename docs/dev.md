@@ -9,7 +9,7 @@ We must install three (03) programs:
 
 
 <details id="table-content" open>
-    <summary>Table des Contenus</summary>
+    <summary>Table of contents</summary>
     <ul>
         <li><a href="#11-install-python3">1.1 Install python3</a></li>
         <li><a href="#12-install-venv">1.2 Install venv</a></li>
