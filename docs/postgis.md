@@ -1,4 +1,6 @@
-## 2. Spatial database with PostGIS
+## 3. Spatial database with PostGIS
+![](https://img.shields.io/badge/lastest-2023--05--09-success)
+
 1. For using a *spacial database*, we can install the following extension:
 
 ###### `>_ cmd@01:~$`
@@ -90,7 +92,7 @@ WORLD_MAPPING = {
     'lat': 'LAT',
     'mpoly': 'MULTIPOLYGON',
 }
-WORLD_SHP = Path(__file__).resolve().parent / 'data'\
+WORLD_SHP = Path(__file__).resolve().parent / 'data' \
      / 'TM_WORLD_BORDERS-0.3.shp'
 
 

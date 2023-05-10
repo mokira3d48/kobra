@@ -71,7 +71,8 @@ domain to access** resources hosted on **another domain**.-->
                 <li><a href="./docs/dev.md#15-lauching-the-server">1.5 Launching the dev server</a></li>
             </ul>
         </li>
-        <li><a href="./docs/postgis.md#2-spatial-database-with-postgis">2. Spatial database with PostGIS</a></li>
+        <li><a href="./docs/cors.md#2-cross-origin-resource-sharing-cors">2. Cross Origin Resource Sharing (CORS)</a></li>
+        <li><a href="./docs/postgis.md#3-spatial-database-with-postgis">3. Spatial database with PostGIS</a></li>
     </ul>
 </details>
 
