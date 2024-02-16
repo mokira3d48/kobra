@@ -31,7 +31,7 @@ from drf_spectacular.views import (
 
 urlpatterns = [
     # API documentation route:
-    path('api/docs/schema/', SpectacularAPIView.as_view(), name='schema'),
+    path('api/download/schema/', SpectacularAPIView.as_view(), name='schema'),
     path('api/schema/redoc/', SpectacularRedocView.as_view(url_name='schema'), name='redoc'),
     path('', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'),
     # Admin route:

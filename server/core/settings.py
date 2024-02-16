@@ -112,7 +112,7 @@ REST_FRAMEWORK = {
 
 # Spectacular settings
 SPECTACULAR_SETTINGS = {
-    'TITLE': 'Terminal P6 APIs Documentation',
+    'TITLE': 'Kobra APIs Documentation',
     'DESCRIPTION': (
 			'Kobra project for using to create server program.'
 		),
