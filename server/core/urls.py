@@ -1,7 +1,8 @@
-"""core URL Configuration
+"""
+URL configuration for core project.
 
 The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/4.1/topics/http/urls/
+    https://docs.djangoproject.com/en/5.0/topics/http/urls/
 Examples:
 Function views
     1. Add an import:  from my_app import views
@@ -21,46 +22,20 @@ from django.urls import path
 from django.urls import re_path
 from django.views import generic
 
-from rest_framework import permissions
-from drf_yasg.views import get_schema_view
-from drf_yasg import openapi
-
-
-# Initialization of API documentation view
-schema_view = get_schema_view(
-   openapi.Info(
-      title="Cobra Server API",
-      default_version='v1',
-      description="Text description",
-      # terms_of_service="https://www.google.com/policies/terms/",
-      contact=openapi.Contact(email="dr.mokira@gmail.com"),
-      license=openapi.License(name="MIT License"),
-   ),
-   public=True,
-   permission_classes=[permissions.AllowAny],
+from drf_spectacular.views import (
+	SpectacularAPIView,
+  SpectacularRedocView,
+	SpectacularSwaggerView,
 )
 
-# Setting the titles of the admin interface
-admin.sites.AdminSite.site_header = settings.ADMIN_SETTINGS["SITE_HEADER"]
-admin.sites.AdminSite.site_title = settings.ADMIN_SETTINGS["SITE_TITLE"]
-admin.sites.AdminSite.index_title = settings.ADMIN_SETTINGS['INDEX_TITLE']
 
 urlpatterns = [
-    re_path(r'^swagger(?P<format>\.json|\.yaml)$',
-        schema_view.without_ui(cache_timeout=0),
-        name='schema-json'),
-    re_path(r'^swagger/$',
-        schema_view.with_ui('swagger', cache_timeout=0),
-        name='schema-swagger-ui'),
-    re_path(r'^apidoc/$',
-        schema_view.with_ui('redoc', cache_timeout=0),
-        name='schema-redoc'),
-
+    # API documentation route:
+    path('api/docs/schema/', SpectacularAPIView.as_view(), name='schema'),
+    path('api/schema/redoc/', SpectacularRedocView.as_view(url_name='schema'), name='redoc'),
+    path('', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'),
+    # Admin route:
     path('admin/', admin.site.urls),
-    path('', generic.RedirectView.as_view(url='/swagger/')),
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
-
-
-
