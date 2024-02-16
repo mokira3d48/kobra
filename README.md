@@ -308,6 +308,13 @@ You can change the IP address and the port of the server with the following comm
 ./server/manage.py runserver 0.0.0.0:8080
 ```
 
+Or you can execute the following command contained in `Makefile`.
+
+```sh
+# ~$
+make run
+```
+
 You will see:
 
 ![](./images/runserver2.png)
