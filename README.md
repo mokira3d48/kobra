@@ -1,11 +1,11 @@
 # Cobra
 
-![](https://img.shields.io/badge/Python-3.9.16-blue)
-![](https://img.shields.io/badge/Django-4.1.5-%2344B78B)
+![](https://img.shields.io/badge/Python-3.11.8-blue)
+![](https://img.shields.io/badge/Django-5.0-%2344B78B)
 ![](https://img.shields.io/badge/REST%20Framework-3.14.0-%23A30000)
 ![](https://img.shields.io/badge/Swagger-OpenAPI%202.0-%23aaaa00)
 ![](https://img.shields.io/badge/LICENSE-MIT-%2300557f)
-![](https://img.shields.io/badge/lastest-2023--04--07-success)
+![](https://img.shields.io/badge/lastest-2024--02--16-success)
 ![](https://img.shields.io/badge/contact-dr.mokira%40gmail.com-blueviolet)
 
 A custom server program based on the **Django framework** designed 
