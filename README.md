@@ -101,7 +101,7 @@ you to use the `django-admin` command in your project.
 sudo apt install python3-django
 ```
 
-### 1.2. Install venv
+### 1.3 Install venv
 You can install a python virtualenv program in two different ways.
 
 ```sh
@@ -116,7 +116,7 @@ OR
 sudo pip3 install virtualenv
 ```
 
-### 1.3. Install PostgreSQL
+### 1.4 Install PostgreSQL
 
 ```sh
 # ~$
@@ -134,7 +134,7 @@ sudo apt install postgis
 ```
 
 
-### 1.4 Configuration
+### 1.5 Configuration
 1. Setting virtual environment;
 2. Creating and setting of PostgreSQL database;
 3. Dependences installation.
