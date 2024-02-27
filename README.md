@@ -1,4 +1,4 @@
-# Cobra
+# Kobra
 
 ![](https://img.shields.io/badge/Python-3.11.8-blue)
 ![](https://img.shields.io/badge/Django-5.0-%2344B78B)
@@ -77,10 +77,11 @@ domain to access** resources hosted on **another domain**.
 
 ## 1. Dev Installation
 We must install three (03) programs:
-1. `Python3` runtime;
-2. Python virtual environment `venv`;
-3. Database manager `PostgreSQL`;
-4. Getting of project repository.
+1. **Python3** runtime
+2. **Django** for Python 3;
+3. Python virtual environment `venv`;
+4. Database manager `PostgreSQL`;
+5. Getting of project repository.
 
 ### 1.1. Install python3
 
@@ -91,6 +92,14 @@ sudo apt install python3 python3-pip
 
 You have to make sure of the version of python that is installed.
 The version of python used is `python 3.10.9`.
+
+### 1.2 Django for python3
+In this version, you need to install the django package for your Python3. This package allows
+you to use the `django-admin` command in your project.
+
+```sh
+sudo apt install python3-django
+```
 
 ### 1.2. Install venv
 You can install a python virtualenv program in two different ways.
