@@ -263,13 +263,20 @@ source ./server/.env
 
 
 ##### b. Server settings
+- Create two directories named `static` and `media`,
+using the following commands:
+
+```sh
+mkdir server/static;\
+mkdir server/media
+```
+
 - Execute the following command lines to make migrations of models into
 database. It's assumed that you are currently in project directory
 root `cobra`.
 
 ```sh
 # ~$
-mkdir server/static;\
 ./server/manage.py makemigrations;\
 ./server/manage.py migrate
 ```
