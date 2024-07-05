@@ -1,4 +1,6 @@
 install:
+	mkdir -p server/static/
+	sudo apt install libpq-dev libsqlite3-dev python3-django
 	pip install -r requirements.txt
 
 migrations:
