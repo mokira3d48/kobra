@@ -1,6 +1,7 @@
 install:
+	sudo apt install build-essential python3-dev libpq-dev libsqlite3-dev python3-django
 	mkdir -p server/static/
-	sudo apt install libpq-dev libsqlite3-dev python3-django
+	mkdir -p server/media/
 	pip install -r requirements.txt
 
 migrations:
@@ -15,4 +16,4 @@ run:
 	./env/bin/python server/manage.py runserver 0.0.0.0:8000
 
 test:
-	pytest server
+	pytest server;
