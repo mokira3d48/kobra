@@ -82,6 +82,14 @@ We must install three (03) programs:
 3. Database manager `PostgreSQL`;
 4. Getting of project repository.
 
+
+### Basic dependencies
+For Linux system users, you can install the following dependencies:
+
+```shell
+sudo apt install cmake
+```
+
 ### 1.1. Install python3
 
 ```sh
@@ -128,7 +136,7 @@ sudo apt install postgis
 ### 1.4 Configuration
 1. Setting virtual environment;
 2. Creating and setting of PostgreSQL database;
-3. Dependences installation.
+3. Dependencies installation.
 
 #### 1.4.1 Setting virtual environment
 1. In your project root, if you have not already done so,
@@ -157,17 +165,7 @@ source env/bin/activate
 
 ```sh
 # ~$
-pip install -r requirements.txt
-```
-
-![](./images/warnings01.png)
-
-If you have warnings including the `coreschema` package that is deprecated,
-then execute the following command line.
-
-```sh
-# ~$
-pip install -r requirements.txt --use-pep517
+make install
 ```
 
 #### 1.4.2 Creating and setting of PostgreSQL database
@@ -263,6 +261,7 @@ source ./server/.env
 
 
 ##### b. Server settings
+<!--
 - Create two directories named `static` and `media`,
 using the following commands:
 
@@ -270,6 +269,7 @@ using the following commands:
 mkdir server/static;\
 mkdir server/media
 ```
+-->
 
 - Execute the following command lines to make migrations of models into
 database. It's assumed that you are currently in project directory
@@ -281,17 +281,30 @@ root `cobra`.
 ./server/manage.py migrate
 ```
 
-You will get the following result, if all works succefully :
+or
+
+```shell
+# ~$
+make migrations
+```
+
+You will get the following result, if all works successfully :
 
 ![](./images/migrations.png)
 
-- Then, create a super user that will be used to connect to admin space.
+- Then, create a superuser that will be used to connect to admin space.
 
 ```sh
 # ~$
 ./server/manage.py createsuperuser
 ```
 
+Or 
+
+```shell
+# ~$
+make csudo
+```
 
 ### Lauching the server
 To start server, you must execute the following command line:
@@ -346,8 +359,43 @@ We cant go it at this local host **http://yourip:8080**.
 ![](./images/swagger.png)
 
 
+### Nettoyage de la base de données PostgreSQL
+Cette section est facultative. Mais, il peut arriver un jour où tu aurras besoin de néttoyer toutes
+les tables de la base de données. Alors, c'est simple. Pour y parvcenir, tu peux simplement supprimer
+tous les schémas que tu as créé. Dans cet exemple, il n'y a qu'un seul schéma que tu vas néttoyer : `public`.
+<br/>
+Connecte-toi en mode `root` avec les deux commandes suivantes :
+```sh
+sudo su - postgres
+```
+```sh
+psql
+```
+
+Ensuite connecte-toi en tent que `user_name` à `db_name` :
+```sh
+\c user_name db_name
+```
+Maintenant, tu peux supprimer le schéma :
+```sql
+DROP SCHEMA public CASCADE;
+```
+Ensuite tu le recrées avec la commande SQL suivante :
+```sql
+CREATE SCHEMA public;
+```
+Et enfin, il ne faut pas oublier de redonner les droits d'accès du schéma à l'utilisateur utilisé par
+ton application pour se connecter.
+```sql
+GRANT ALL ON SCHEMA public TO user_name;
+```
+```sql
+GRANT ALL ON SCHEMA public TO public;
+```
+
+
 ## Usage
-For the differents usages, you can consult the different documentation
+For the different usages, you can consult the different documentation
 available [here](./docs/README.md).
 
 1. PostGIS
