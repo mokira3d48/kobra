@@ -58,6 +58,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -109,6 +110,11 @@ REST_FRAMEWORK = {
     'PAGE_SIZE': 16,
 
     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
+    'EXCEPTION_HANDLER': 'core.exceptions.exception_handler_fn',
+
+    # Configure size of uploaded files (bytes).
+    # 'FILE_UPLOAD_MAX_MEMORY_SIZE': 120 * 1024 * 1024,  # 120MB
+    'DATA_UPLOAD_MAX_MEMORY_SIZE': 120 * 1024 * 1024,  # 120MB
 }
 
 # Spectacular settings
@@ -181,14 +187,22 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/
 
+LANGUAGES = [
+    ('en', 'English'),
+    ('fr', 'Français'),
+]
+
+LOCALE_PATHS = [
+    BASE_DIR / 'locale',  # Path to traduction files
+]
+
+USE_I18N = True
+USE_L10N = True
+USE_TZ = True
+
 LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'UTC'
-
-USE_I18N = True
-
-USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
@@ -210,3 +224,10 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+# DATA_UPLOAD_MAX_NUMBER_FIELDS = 120
+
+# Maximal size of an uploaded file in bytes (default 2.5MB)
+FILE_UPLOAD_MAX_MEMORY_SIZE = 128 * 1024 * 1024  # 128MB
+
+# Maximal total size of uploaded files in one request (default 2.5MB)
+DATA_UPLOAD_MAX_MEMORY_SIZE = 256 * 1024 * 1024  # 256MB

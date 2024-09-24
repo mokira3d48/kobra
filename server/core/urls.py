@@ -19,24 +19,25 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.conf import settings
 from django.urls import path
-from django.urls import re_path
-from django.views import generic
+from django.conf.urls.i18n import i18n_patterns
 
-from drf_spectacular.views import (
-	SpectacularAPIView,
-  SpectacularRedocView,
-	SpectacularSwaggerView,
-)
+from drf_spectacular.views import (SpectacularAPIView,
+                                   SpectacularRedocView,
+                                   SpectacularSwaggerView)
 
 
 urlpatterns = [
-    # API documentation route:
+    # API documentation route :
     path('api/download/schema/', SpectacularAPIView.as_view(), name='schema'),
-    path('api/schema/redoc/', SpectacularRedocView.as_view(url_name='schema'), name='redoc'),
-    path('', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'),
+    path('api/schema/redoc/', SpectacularRedocView.as_view(url_name='schema'),
+         name='redoc'),
+    path('', SpectacularSwaggerView.as_view(url_name='schema'),
+         name='swagger-ui'),
+
     # Admin route:
     path('admin/', admin.site.urls),
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+urlpatterns = i18n_patterns(*urlpatterns)
