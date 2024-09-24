@@ -109,11 +109,12 @@ def exception_handler_fn(exc, context):
         return Response(serialized.data, status=exc.status_code)
 
     if response is None:
-        raise exc
-        return Response({
-            'error': DEFAULT_RESPONSE_EXAMPLES[500]['error'],
-            'details': str(exc),
-            'code': DEFAULT_RESPONSE_EXAMPLES[500]['code'],
-        }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        # raise exc
+        return Response(
+            dict(error=DEFAULT_RESPONSE_EXAMPLES[500]['error'],
+                 details=str(exc),
+                 code=DEFAULT_RESPONSE_EXAMPLES[500]['code']),
+            status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
     return response
+

@@ -1,0 +1,62 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-09-24 16:09-0400\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+#: core/exceptions.py:13
+msgid "Authentication credentials were not provided."
+msgstr "Les informations d’authentification n’ont pas été fournies."
+
+#: core/exceptions.py:15
+msgid "An internal server error is occurrence!"
+msgstr "Un erreur interne du serveur est survenue !"
+
+#: core/exceptions.py:16
+msgid "Exception to string..."
+msgstr "Exception sous forme chaine de caractères..."
+
+#: core/exceptions.py:24
+msgid "A value of a field is not valid."
+msgstr "Une valeur d'un champ est invalide."
+
+#: core/exceptions.py:34
+msgid "This user is unauthorized"
+msgstr "Ce utilisateur n'est pas authorisé"
+
+#: core/exceptions.py:40
+msgid "This action or access required a payment."
+msgstr "Cette action ou accès nécessite un paiement."
+
+#: core/exceptions.py:46
+msgid "This action or access is forbidden."
+msgstr "Cette action ou accès est interdite."
+
+#: core/exceptions.py:52
+msgid "The resource is not found."
+msgstr "La resource n'existe pas."
+
+#: core/exceptions.py:58
+msgid "An error is occurrence in the server"
+msgstr "Une erreur est survenue dans le serveur"
+
+#: core/exceptions.py:64
+msgid "The service is not available for the moment."
+msgstr "Le service est indisponible en ce moment."
+
+#: core/exceptions.py:72
+msgid "Something wrong!"
+msgstr "Quelque chose ne va pas !"

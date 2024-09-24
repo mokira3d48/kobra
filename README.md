@@ -388,8 +388,6 @@ Et enfin, il ne faut pas oublier de redonner les droits d'accès du schéma à l
 ton application pour se connecter.
 ```sql
 GRANT ALL ON SCHEMA public TO user_name;
-```
-```sql
 GRANT ALL ON SCHEMA public TO public;
 ```
 
