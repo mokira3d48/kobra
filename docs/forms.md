@@ -12,6 +12,13 @@ de leur fonctionnement.
 pour capturer diverses entrées utilisateur, comme des chaînes de caractères,
 des nombres, des dates, etc.
 
+- `CharField` : pour du texte;
+- `IntegerField` : pour des nombres entiers;
+- `DateField` : pour des dates;
+- `EmailField` : pour des adresses e-mail;
+- `FileField` : pour l'upload de fichiers;
+- `ChoiceField` : pour des choix prédéfinis;
+
 2. **Validation des données** : Django fournit un mécanisme intégré
 pour valider les données saisies par l'utilisateur. Vous pouvez également
 ajouter votre propre logique de validation.
