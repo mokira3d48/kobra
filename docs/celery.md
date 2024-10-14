@@ -1,7 +1,7 @@
 # Celery
 
 ## Introduction
-Celery est une bibliothèque Python conçue pour exécuter des tâches
+**Celery** est une bibliothèque Python conçue pour exécuter des tâches
 asynchrones et planifiées, facilitant ainsi la gestion des tâches
 en arrière-plan dans les applications. Voici une explication détaillée
 de son fonctionnement, de sa configuration à son utilisation.
