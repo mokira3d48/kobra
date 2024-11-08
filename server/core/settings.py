@@ -224,6 +224,8 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+# FILE UPLOADING:
+# -----------------------------------------------------------------------------
 # DATA_UPLOAD_MAX_NUMBER_FIELDS = 120
 
 # Maximal size of an uploaded file in bytes (default 2.5MB)
@@ -231,3 +233,12 @@ FILE_UPLOAD_MAX_MEMORY_SIZE = 128 * 1024 * 1024  # 128MB
 
 # Maximal total size of uploaded files in one request (default 2.5MB)
 DATA_UPLOAD_MAX_MEMORY_SIZE = 256 * 1024 * 1024  # 256MB
+
+
+# SESSION SETTINGS:
+# -----------------------------------------------------------------------------
+# Duration of session expiration:
+SESSION_COOKIE_AGE = 60 * 60 * 24 * 7  # 1 week (value is in second)
+
+# Make end session when client browser closed.
+SESSION_EXPIRE_AT_BROWSER_CLOSE = False
