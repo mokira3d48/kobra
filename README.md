@@ -50,7 +50,7 @@ domain to access** resources hosted on **another domain**.
 
 
 <details id="table-content" open>
-    <summary>Table des Contenus</summary>
+    <summary>Table of Content</summary>
     <ul>
         <li><a href="#1-dev-installation">1. Dev installation</a>
             <ul>
@@ -98,7 +98,7 @@ sudo apt install python3 python3-pip
 ```
 
 You have to make sure of the version of python that is installed.
-The version of python used is `python 3.10.9`.
+The version of python used is *Python 3.10.9*.
 
 ### 1.2. Install venv
 You can install a python virtualenv program in two different ways.
