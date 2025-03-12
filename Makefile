@@ -8,6 +8,7 @@ install:
 	cd $(BASE_DIR) && mkdir -p static/
 	cd $(BASE_DIR) && mkdir -p media/
 	cd $(BASE_DIR) && mkdir -p locale/
+	python -m pip install --upgrade pip
 	pip install -r requirements.txt
 
 messages:
