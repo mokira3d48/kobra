@@ -30,11 +30,11 @@ sudo:
 	.venv/bin/python3 server/manage.py createsuperuser
 
 run:
-	hostname -I;
+	hostname -I
 	.venv/bin/python3 server/manage.py runserver 0.0.0.0:8000
 
 test:
-	.venv/bin/pytest server;
+	.venv/bin/pytest server
 
 shell:
 	.venv/bin/python3 server/manage.py shell
