@@ -1,4 +1,8 @@
+<div align="center">
+
 # Kobra
+
+---
 
 ![](https://img.shields.io/badge/Python-3.11.8-blue)
 ![](https://img.shields.io/badge/Django-5.0-%2344B78B)
@@ -7,6 +11,8 @@
 ![](https://img.shields.io/badge/LICENSE-MIT-%2300557f)
 ![](https://img.shields.io/badge/lastest-2024--02--16-success)
 ![](https://img.shields.io/badge/contact-dr.mokira%40gmail.com-blueviolet)
+
+</div>
 
 A custom server program based on the **Django framework** designed 
 to allow a programmer to directly move to the implementation of 
