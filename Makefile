@@ -1,11 +1,17 @@
 BASE_DIR = server
 
-install:
+full-install:
 	sudo apt install build-essential gettext python3-dev libpq-dev libsqlite3-dev python3-django
 	python3 -m venv .venv
 	cd $(BASE_DIR) && mkdir -p static/
 	cd $(BASE_DIR) && mkdir -p media/
 	cd $(BASE_DIR) && mkdir -p locale/
+	.venv/bin/python3 --version
+	.venv/bin/python3 -m pip install --upgrade pip
+	.venv/bin/python3 -m pip install -r requirements.txt
+
+install:
+	.venv/bin/python3 --version
 	.venv/bin/python3 -m pip install --upgrade pip
 	.venv/bin/python3 -m pip install -r requirements.txt
 
