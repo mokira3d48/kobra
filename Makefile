@@ -16,11 +16,11 @@ install:
 	.venv/bin/python3 -m pip install -r requirements.txt
 
 messages:
-	cd $(BASE_DIR) && django-admin makemessages -l en  # for english translation;
-	cd $(BASE_DIR) && django-admin makemessages -l fr  # for french translation;
+	cd $(BASE_DIR) && .venv/bin/django-admin makemessages -l en  # for english translation;
+	cd $(BASE_DIR) && .venv/bin/django-admin makemessages -l fr  # for french translation;
 
 build:
-	django-admin compilemessages  # build i18n;
+	.venv/bin/django-admin compilemessages  # build i18n;
 
 migrations:
 	.venv/bin/python3 server/manage.py makemigrations
