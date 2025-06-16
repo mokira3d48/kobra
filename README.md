@@ -237,13 +237,13 @@ cp server/.env_example server/.env
 
 2. Insert the following information into `.env` file:
 
-| FIELDS   | VALUES                    |
-| ------   | --------------------------|
-| DB_NAME  | cbrdb                     |
-| USERNAME | cobra                     |
-| PASSWORD | your-secret-password-here |
-| HOST     | 127.0.0.1                 |
-| PORT     | 5432                      |
+| FIELDS   | VALUES                    | DESCRIPTION            |
+| ------   | --------------------------|------------------------|
+| DB_NAME  | cbrdb                     | Database name.         |
+| USERNAME | cobra                     | User name of database. |
+| PASSWORD | your-secret-password-here | User password.         |
+| HOST     | 127.0.0.1                 | The access hostname to connect to the database. |
+| PORT     | 5432                      | The access PORT to connect to the database. |
 
 Here are the contents of the file `.env`:
 
