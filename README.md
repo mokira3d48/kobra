@@ -2,8 +2,6 @@
 
 # KOBRA
 
----
-
 ![](https://img.shields.io/badge/Python-3.11.8-blue)
 ![](https://img.shields.io/badge/Django-5.0-%2344B78B)
 ![](https://img.shields.io/badge/REST%20Framework-3.14.0-%23A30000)
