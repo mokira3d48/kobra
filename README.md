@@ -7,7 +7,7 @@
 ![](https://img.shields.io/badge/REST%20Framework-3.14.0-%23A30000)
 ![](https://img.shields.io/badge/Swagger-OpenAPI%202.0-%23aaaa00)
 ![](https://img.shields.io/badge/LICENSE-MIT-%2300557f)
-![](https://img.shields.io/badge/lastest-2024--06--25-success)
+![](https://img.shields.io/badge/lastest-2025--06--25-success)
 ![](https://img.shields.io/badge/contact-dr.mokira%40gmail.com-blueviolet)
 
 </div>
