@@ -23,19 +23,19 @@ build:
 	.venv/bin/django-admin compilemessages  # build i18n;
 
 migrations:
-	.venv/bin/python3 server/manage.py makemigrations
-	.venv/bin/python3 server/manage.py migrate
+	.venv/bin/python3 $(BASE_DIR)/manage.py makemigrations
+	.venv/bin/python3 $(BASE_DIR)/manage.py migrate
 
 sudo:
-	.venv/bin/python3 server/manage.py createsuperuser
+	.venv/bin/python3 $(BASE_DIR)/manage.py createsuperuser
 
 run:
 	hostname -I
-	.venv/bin/python3 server/manage.py runserver 0.0.0.0:8000
+	.venv/bin/python3 $(BASE_DIR)/manage.py runserver 0.0.0.0:8000
 
 test:
-	.venv/bin/pytest server
+	.venv/bin/pytest $(BASE_DIR)
 
 shell:
-	.venv/bin/python3 server/manage.py shell
+	.venv/bin/python3 $(BASE_DIR)/manage.py shell
 
