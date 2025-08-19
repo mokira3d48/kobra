@@ -14,6 +14,7 @@ import os
 import logging
 import logging.config
 from pathlib import Path
+from datetime import timedelta
 from dotenv import load_dotenv
 
 
@@ -25,7 +26,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Logging config
 logging.config.fileConfig(BASE_DIR / 'logging.conf')
-logging.getLogger(__name__).info("Loading setting ...")
+LOGGER = logging.getLogger(__name__)
+LOGGER.info("Loading setting ...")
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
@@ -36,25 +38,35 @@ SECRET_KEY = 'django-insecure-(gxw3-6s!-&b#hv*-dg2j=ub%tyd21^!n-s*w6+18&g6obwf@n
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']  # `*` is used to allowed all host.
+ALLOWED_HOSTS = ['*']  # `*` is used to allow all host.
 
 
 # Application definition
 
-INSTALLED_APPS = [
+# Application definition
+DJANGO_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+]
 
+THIRD_PARTY_APPS = [
     'corsheaders',
     'django_filters',
     'rest_framework',
     'rest_framework_simplejwt',
     'drf_spectacular',
 ]
+LOCAL_APPS = [
+    "apps.base",
+]
+INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
+
+# To specify the default django model for user.
+# AUTH_USER_MODEL = 'auths.UserModel'
 
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
@@ -116,6 +128,14 @@ REST_FRAMEWORK = {
     # Configure size of uploaded files (bytes).
     # 'FILE_UPLOAD_MAX_MEMORY_SIZE': 120 * 1024 * 1024,  # 120MB
     'DATA_UPLOAD_MAX_MEMORY_SIZE': 120 * 1024 * 1024,  # 120MB
+}
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=60),
+    'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=1),
+    'SLIDING_TOKEN_LIFETIME': timedelta(days=30),
+    'SLIDING_TOKEN_REFRESH_LIFETIME_LATE_USER': timedelta(days=1),
+    'SLIDING_TOKEN_LIFETIME_LATE_USER': timedelta(days=30),
 }
 
 # Spectacular settings
@@ -194,7 +214,7 @@ LANGUAGES = [
 ]
 
 LOCALE_PATHS = [
-    BASE_DIR / 'locale',  # Path to traduction files
+    BASE_DIR / 'locale',  # Path to transduction files
 ]
 
 USE_I18N = True
@@ -234,7 +254,6 @@ FILE_UPLOAD_MAX_MEMORY_SIZE = 128 * 1024 * 1024  # 128MB
 
 # Maximal total size of uploaded files in one request (default 2.5MB)
 DATA_UPLOAD_MAX_MEMORY_SIZE = 256 * 1024 * 1024  # 256MB
-
 
 # SESSION SETTINGS:
 # -----------------------------------------------------------------------------
