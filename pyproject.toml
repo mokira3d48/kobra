@@ -1,0 +1,47 @@
+[build-system]
+requires = ["setuptools>=42", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "kobra"
+version = "1.0.0"
+description = "A custom server program based on the Django framework designed to allow a programmer to directly move to the implementation of an application's features without having to torture himself with other time-consuming configuration or installation."
+readme = "README.md"
+authors = [
+    { name = "Your Name", email = "your.email@example.com" },
+]
+license = { file = "LICENSE" }
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+keywords = [
+    "python3", "django", "web-server", "django-rest-framework", "swagger",
+    "postgresql", "openapi"
+]
+dependencies = [
+    "django",
+    "django-extensions",
+    "django-cors-headers",
+    "djangorestframework",
+    "markdown",
+    "django-filter",
+    "djangorestframework-simplejwt",
+    "drf-spectacular",
+    "psycopg2",
+    "python-dotenv",
+    "gunicorn",
+    "pytest",
+    "pytest-django",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/mokira3d48/kobra"
+# "Bug Tracker" = "https://github.com/your-username/my-python-package/issues"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[project.scripts]
+manage = "manage:main"
