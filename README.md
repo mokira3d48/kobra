@@ -29,7 +29,7 @@ time-consuming configuration or installation.
     - [2.1. OS dependences](#21-os-dependences): Installation of your Linux OS dependences.
       - [2.1.1. Ubuntu](#211-ubuntu): Choose this, if your OS is Ubuntu.
       - [2.1.2. Debian or Kali](#212-debian-or-kali): Otherwise, choose this, if your OS is Debian or Kali.
-    - [2.2. Repository dependences](#22-project-dependences): To install the dependences for this project.
+    - [2.2. Repository dependences](#22-repository-dependences): To install the dependences for this project.
       - [2.2.1. Database setting](#221-database-setting): To install database manager and setting the application database.
         - [(a) PostgreSQL](#a-postgresql): Setting of the database of PostgreSQL for application server.
       - [2.2.2. Server setting](#222-server-setting): To install the dependences of the Python server of application.
