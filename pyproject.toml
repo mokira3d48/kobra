@@ -41,7 +41,7 @@ dependencies = [
 # "Bug Tracker" = "https://github.com/your-username/my-python-package/issues"
 
 [tool.setuptools.packages.find]
-where = ["src"]
+where = ["server"]
 
 [project.scripts]
 manage = "manage:main"

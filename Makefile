@@ -1,4 +1,4 @@
-BASE_DIR = src
+BASE_DIR = server
 VENV_DIR = .venv
 VENV_BIN = $(VENV_DIR)/bin
 
