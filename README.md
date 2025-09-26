@@ -463,6 +463,7 @@ ton application pour se connecter.
 ```sql
 GRANT ALL ON SCHEMA public TO user_name;
 GRANT ALL ON SCHEMA public TO public;
+```
 
 ## Tests
 
