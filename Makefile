@@ -21,8 +21,8 @@ dev_install:
 	.venv/bin/python3 -m pip install -e .
 
 messages:
-	cd $(BASE_DIR) && $(VENV_BIN)/django-admin makemessages -l en  # for english translation;
-	cd $(BASE_DIR) && $(VENV_BIN)/django-admin makemessages -l fr  # for french translation;
+	cd $(BASE_DIR) && ../$(VENV_BIN)/django-admin makemessages -l en  # for english translation;
+	cd $(BASE_DIR) && ../$(VENV_BIN)/django-admin makemessages -l fr  # for french translation;
 
 build:
 	$(VENV_BIN)/django-admin compilemessages  # build i18n;
