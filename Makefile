@@ -1,24 +1,26 @@
 BASE_DIR = server
 VENV_DIR = .venv
 VENV_BIN = $(VENV_DIR)/bin
+PYTHON3 = $(VENV_BIN)/python3
 
 HOST = 0.0.0.0
 PORT = 8000
 
 install:
-	sudo apt install build-essential gettext python3-dev libpq-dev libsqlite3-dev python3-django
+	sudo apt install build-essential gettext python3-dev python3-venv libpq-dev \
+		libsqlite3-dev python3-django
 	test -d $(VENV_DIR) || python3 -m venv $(VENV_DIR)
 	cd $(BASE_DIR) && mkdir -p static/
 	cd $(BASE_DIR) && mkdir -p media/
 	cd $(BASE_DIR) && mkdir -p locale/
-	$(VENV_BIN)/python3 --version
-	$(VENV_BIN)/python3 -m pip install --upgrade pip
-	$(VENV_BIN)/python3 -m pip install -r requirements.txt
+	cd $(BASE_DIR) && mkdir -p logs/
+	$(PYTHON3) --version
+	$(PYTHON3) -m pip install --upgrade pip
+	$(PYTHON3) -m pip install -r requirements.txt
 
 dev_install:
-	.venv/bin/python3 --version
-	#.venv/bin/python3 -m pip install --upgrade pip
-	.venv/bin/python3 -m pip install -e .
+	$(PYTHON3) --version
+	$(PYTHON3) -m pip install -e .
 
 messages:
 	cd $(BASE_DIR) && ../$(VENV_BIN)/django-admin makemessages -l en  # for english translation;
