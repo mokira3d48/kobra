@@ -433,12 +433,12 @@ project-root/
     └── locale/
 ```
 
-### Nettoyage de la base de données PostgreSQL
-Cette section est facultative. Mais, il peut arriver un jour où tu aurras besoin de néttoyer toutes
-les tables de la base de données. Alors, c'est simple. Pour y parvcenir, tu peux simplement supprimer
-tous les schémas que tu as créé. Dans cet exemple, il n'y a qu'un seul schéma que tu vas néttoyer : `public`.
+### PostgreSQL Database Cleanup
+This section is optional. However, there may come a day when you need to clean up all
+the database tables. So, it's simple. To do this, you can simply drop
+all the schemas you created. In this example, there is only one schema you will clean up: `public`.
 <br/>
-Connecte-toi en mode `root` avec les deux commandes suivantes :
+Log in as `root` with the following two commands:
 ```sh
 sudo su - postgres
 ```
@@ -446,20 +446,20 @@ sudo su - postgres
 psql
 ```
 
-Ensuite connecte-toi en tent que `user_name` à `db_name` :
+Then connect as `user_name` to `db_name`:
 ```sh
 \c user_name db_name
 ```
-Maintenant, tu peux supprimer le schéma :
+Now you can drop the schema:
 ```sql
 DROP SCHEMA public CASCADE;
 ```
-Ensuite tu le recrées avec la commande SQL suivante :
+Then recreate it with the following SQL command:
 ```sql
 CREATE SCHEMA public;
 ```
-Et enfin, il ne faut pas oublier de redonner les droits d'accès du schéma à l'utilisateur utilisé par
-ton application pour se connecter.
+And finally, don't forget to grant schema access rights back to the user used by
+your application to connect.
 ```sql
 GRANT ALL ON SCHEMA public TO user_name;
 GRANT ALL ON SCHEMA public TO public;
