@@ -270,6 +270,29 @@ We cant go it at this local host **http://localhost:8000**.
 ![](./images/swagger.png)
 
 
+### Docker onfiguration
+
+To build an image of this project, run the following command line:
+
+```sh
+docker compose build web
+```
+
+And then, run this application in container running the following
+command line:
+
+```sh
+docker compose up
+```
+
+To shutdown the container of this application, open another terminal,
+and then, run the following command line:
+
+```sh
+docker compose down
+```
+
+
 ## Usage
 
 This Makefile provides a comprehensive set of commands for managing
