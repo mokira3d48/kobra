@@ -292,6 +292,29 @@ and then, run the following command line:
 docker compose down
 ```
 
+To remove an image, type the following command with id of the image:
+
+```sh
+docker image ls
+```
+
+```
+                                                                                                                             i Info →   U  In Use
+IMAGE              ID             DISK USAGE   CONTENT SIZE   EXTRA
+kobra-web:latest   342ca1ab61c1       1.95GB          497MB    U 
+```
+
+```sh
+docker rmi -f 342ca1ab61c1
+```
+
+Output:
+
+```
+Untagged: kobra-web:latest
+Deleted: sha256:342ca1ab61c12e06675a5de8c5e1a0ba27cdd6d5afff7e6c37b21b3e8b66dc63
+```
+
 
 ## Usage
 
