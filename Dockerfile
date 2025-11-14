@@ -11,19 +11,23 @@ COPY tests /app/
 COPY requirements.txt /app/
 COPY pyproject.toml /app/
 COPY pytest.ini /app/
-RUN ls -al .
+
+RUN python -m venv /env
+ENV PATH="/env/bin/:$PATH"
+
+COPY entrypoint.sh /app/entrypoint.sh
 
 RUN apt-get update && \
 	apt-get install -y build-essential gettext python3-dev python3-venv libpq-dev libsqlite3-dev python3-django
 
-RUN pip install --upgrade pip
-RUN mkdir -p /app/server/static/
-RUN mkdir -p /app/server/media/
-RUN mkdir -p /app/server/locale/
-RUN mkdir -p /app/server/logs/
+RUN python -m pip install --upgrade pip
+RUN mkdir -p server/static/
+RUN mkdir -p server/media/
+RUN mkdir -p server/locale/
+RUN mkdir -p server/logs/
 RUN python --version
-RUN pip install -r requirements.txt
-RUN pip install .
+RUN python -m pip install -r requirements.txt
+RUN python -m pip install -e .
 
 RUN python -m manage compilemessages
 RUN python -m manage makemigrations
