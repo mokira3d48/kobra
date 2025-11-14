@@ -28,6 +28,7 @@ messages:
 
 build:
 	$(VENV_BIN)/django-admin compilemessages  # build i18n;
+	$(VENV_BIN)/manage collectstatic  # collect the static files;
 
 migrations:
 	#.venv/bin/python3 $(BASE_DIR)/manage.py makemigrations

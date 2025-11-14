@@ -319,12 +319,19 @@ Untagged: kobra-web:latest
 Deleted: sha256:342ca1ab61c12e06675a5de8c5e1a0ba27cdd6d5afff7e6c37b21b3e8b66dc63
 ```
 
-To run a command line directly on the container in running:
+To run a container from existing built image, you can run the following example:
+
+```sh
+# ~$
+docker run -d -it --rm -p 8080:8080 --name kobra-web-1 kobra-web:latest python -m manage runserver 0.0.0.0:8080
+```
+
+To execute a command line directly on the container in running:
 
 ```shell
 # ~$
 # such as we we try to create a super user.
-docker exec -it kobra-web-1 manage createsuperuser
+docker exec -it kobra-web-1 python -m manage createsuperuser
 ```
 
 > `kobra-web-1` represents the name of the container that you can obtain
@@ -335,6 +342,12 @@ CONTAINER ID   IMAGE       COMMAND                  CREATED          STATUS     
 cbb6dbbf0816   kobra-web   "/app/entrypoint.sh …"   12 minutes ago   Up 12 minutes   0.0.0.0:8080->8080/tcp, [::]:8080->8080/tcp   kobra-web-1
 
 ```
+
+- To list all images availables: `docker image ls`
+- To list all containers running: `docker container ls`.
+- To list all containers (running and stopped): `docker ps -a`.
+- To **stop** a running container: `docker stop kobra-web-1`.
+- To **remove** a stopped container: `docker rm kobra-web-1`.
 
 
 ## Usage

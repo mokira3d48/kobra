@@ -32,4 +32,5 @@ RUN python -m pip install -e .
 RUN python -m manage compilemessages
 RUN python -m manage makemigrations
 RUN python -m manage migrate
+RUN python -m manage collectstatic
 
