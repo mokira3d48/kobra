@@ -11,8 +11,6 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 import os
-import logging
-import logging.config
 from pathlib import Path
 from datetime import timedelta
 from dotenv import load_dotenv
@@ -24,19 +22,17 @@ load_dotenv()
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# Logging config
-logging.config.fileConfig(BASE_DIR / 'logging.conf')
-LOGGER = logging.getLogger(__name__)
-LOGGER.info("Loading setting ...")
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-(gxw3-6s!-&b#hv*-dg2j=ub%tyd21^!n-s*w6+18&g6obwf@n'
+SECRET_KEY = os.getenv(
+    'SECRET_KEY',
+    'django-insecure-(gxw3-6s!-&b#hv*-dg2j=ub%tyd21^!n-s*w6+18&g6obwf@n'
+    )
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = bool(os.getenv('DEBUG', "False"))
 
 ALLOWED_HOSTS = ['*']  # `*` is used to allow all host.
 
@@ -61,7 +57,7 @@ THIRD_PARTY_APPS = [
     'drf_spectacular',
 ]
 LOCAL_APPS = [
-    "apps.base",
+    "main"
 ]
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 
@@ -118,12 +114,12 @@ REST_FRAMEWORK = {
     ),
 
     # Pagination system settings for all API view that returns a data list.
-    # In this case, the size of a page is set to 8.
+    # In this case, the size of a page is set to 16.
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 16,
 
     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
-    'EXCEPTION_HANDLER': 'core.exceptions.exception_handler_fn',
+    'EXCEPTION_HANDLER': 'server.core.exceptions.exception_handler_fn',
 
     # Configure size of uploaded files (bytes).
     # 'FILE_UPLOAD_MAX_MEMORY_SIZE': 120 * 1024 * 1024,  # 120MB
@@ -142,7 +138,7 @@ SIMPLE_JWT = {
 SPECTACULAR_SETTINGS = {
     'TITLE': 'Kobra APIs Documentation',
     'DESCRIPTION': (
-			'Kobra project for using to create server program.'
+		'Kobra project for using to create server program.'
 		),
     'VERSION': '1.0.0',
     'COMPONENT_SPLIT_REQUEST': True,
@@ -231,8 +227,7 @@ TIME_ZONE = 'UTC'
 STATIC_URL = 'static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static'),
-    # '/var/www/static/',
+    os.path.join(BASE_DIR, 'static'),  # '/var/www/static/',
 ]
 
 # Base url to serve media files
@@ -262,3 +257,46 @@ SESSION_COOKIE_AGE = 60 * 60 * 24 * 7  # 1 week (value is in second)
 
 # Make end session when client browser closed.
 SESSION_EXPIRE_AT_BROWSER_CLOSE = False
+
+# LOGGING SETTINGS
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format': '{levelname} {asctime} {module} {message}',
+            'style': '{',
+        },
+    },
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+            'formatter': 'verbose',
+        },
+        'file': {
+            'class': 'logging.handlers.RotatingFileHandler',
+            'filename': BASE_DIR / 'logs' / 'leniac_server.log',
+            'maxBytes': 1024 * 1024 * 15,  # 15MB
+            'backupCount': 10,
+            'formatter': 'verbose',
+        },
+    },
+    'root': {
+        'handlers': ['console', 'file'],
+        'level': 'INFO',
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['console', 'file'],
+            'level': 'INFO',
+            'propagate': False,
+        },
+        'chat': {
+            'handlers': ['console', 'file'],
+            'level': 'INFO',
+            'propagate': False,
+        },
+    },
+}
+

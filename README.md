@@ -1,5 +1,5 @@
 <div align="center">
-
+  
 # KOBRA
 
 ![](https://img.shields.io/badge/Python-3.10.8-blue)
@@ -7,341 +7,248 @@
 ![](https://img.shields.io/badge/REST%20Framework-3.14.0-%23A30000)
 ![](https://img.shields.io/badge/Swagger-OpenAPI%202.0-%23aaaa00)
 ![](https://img.shields.io/badge/LICENSE-MIT-%2300557f)
-![](https://img.shields.io/badge/lastest-2025--06--25-success)
+![](https://img.shields.io/badge/lastest-2025--09--26-success)
 ![](https://img.shields.io/badge/contact-dr.mokira%40gmail.com-blueviolet)
 
 </div>
 
-A custom server program based on the **Django framework** designed 
+Cloneable referential to initialize a custom server program based
+on the **Django framework** designed 
 to allow a programmer to directly move to the implementation of 
 an application's features without having to torture himself with other
 time-consuming configuration or installation.
 
-You can clone this repository everywhere you want in your machine,
-with the following command lines:
+**Table of Contents**
 
-```sh
-# ~$
-git clone https://github.com/mokira3d48/cobra.git myapp && cd myapp
-```
+- [Description](#description):  contents the project description.
+- [Features](#features): contents the descriptions of each features implemented and available on this software.
+- [Installation](#installation): contents the process of the installation for two plateforms.
+  - [1. Database](#1-database): Database management system installation and database setting.
+    - [1.1. PostgreSQL](#11-postgresql): Support for PostgreSQL database manager.
+  - [2. Application server](#2-application-server)
+    - [2.1. OS dependences](#21-os-dependences): Installation of your Linux OS dependences.
+      - [2.1.1. Ubuntu](#211-ubuntu): Choose this, if your OS is Ubuntu.
+      - [2.1.2. Debian or Kali](#212-debian-or-kali): Otherwise, choose this, if your OS is Debian or Kali.
+    - [2.2. Repository dependences](#22-repository-dependences): To install the dependences for this project.
+      - [2.2.1. Database setting](#221-database-setting): To install database manager and setting the application database.
+        - [(a) PostgreSQL](#a-postgresql): Setting of the database of PostgreSQL for application server.
+      - [2.2.2. Server setting](#222-server-setting): To install the dependences of the Python server of application.
+- [Usage](#usage): all details of the use cases usefull to get starting this software. 
+- [Tests](#tests): all details to run unittest.
+- [To contribute](#to-contribute): usefull information for the person who want to contribute to this project.
+- [Licence](#licence): description of the license of this software.
+- [Contact](#contact): developers contacts.
 
-In this cloned directory, you will see the following structure:
 
-```
-.
-├── LICENSE
-├── README.md
-├── requirements.txt
-└── server
-    ├── core
-    │   ├── asgi.py
-    │   ├── __init__.py
-    │   ├── settings.py
-    │   ├── urls.py
-    │   └── wsgi.py
-    └── manage.py
+## Description
 
-2 directories, 9 files
-```
+My Python project is a simple application that allows users to create, read,
+update and delete the tasks. It is designed to be easy to use and expand.
 
-This is the list of the installed features:
-1. **Django REST Framework**: it's a powerful and flexible toolkit
+## Features
+
+- **Django REST Framework**: it's a powerful and flexible toolkit
 for building Web APIs.
-2. **drf-yasg**: for the generation of a documentation of the API in real
-**Swagger/OpenAPI 2.0 specifications** from a **Django Rest Framework** API.
-3. **Django CORS Headers**: it's a security mechanism that **allows one
-domain to access** resources hosted on **another domain**.
+-  **drf-spectacular**: for the generation of a documentation of the API
+in real **Swagger/OpenAPI 2.0 specifications**
+from a **Django Rest Framework** API.
+- **Django CORS Headers**: it's a security mechanism that
+**allows one domain to access** resources hosted on **another domain**.
 
+## Installation
+To install the project, make sure you have **Python 3.10** or later version
+and `pip` installed on your machine. And then you can pass to the following
+steps.
 
-<details id="table-content" open>
-    <summary>Table of Content</summary>
-    <ul>
-        <li><a href="#1-dev-installation">1. Dev installation</a>
-            <ul>
-                <li><a href="#install-python3">1.1 Install python3</a></li>
-                <li><a href="#install-venv">1.2 Install venv</a></li>
-                <li><a href="#install-postgresql">1.3 Install PostgreSQL</a></li>
-                <li><a href="#configuration">1.4 Configuration</a>
-                    <ul>
-                        <li><a href="#setting-virtual-environment">1.4.1 Setting virtual environment</a></li>
-                        <li><a href="#creating-and-setting-of-postgresql-database">1.4.2 Creating and setting of PostgreSQL database</a>
-                            <ul>
-                                <li><a href="#a-env-config">a. .env settings</a></li>
-                                <li><a href="#b-launching-the-server">b. Server settings</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
-        </li>
-        <li><a href="#launching-the-server">2. Launching the dev server</a></li>
-    </ul>
-</details>
-
-
-## 1. Dev Installation
 We must install three (03) programs:
 1. `Python3` runtime;
 2. Python virtual environment `venv`;
 3. Database manager `PostgreSQL`;
 4. Getting of project repository.
 
-
-### Basic dependencies
-For Linux system users, you can install the following dependencies:
-
-```shell
-sudo apt install cmake
-```
-
-### 1.1. Install python3
+### 1. Database
+#### 1.1. PostgreSQL
+To install this database manager, run the following command line of APT.
 
 ```sh
-# ~$
-sudo apt install python3 python3-pip
-```
-
-You have to make sure of the version of python that is installed.
-The version of python used is *Python 3.10.9*.
-
-### 1.2. Install venv
-You can install a python virtualenv program in two different ways.
-
-```sh
-# ~$
-sudo apt install python3-venv
-```
-
-OR
-
-```sh
-# ~$
-sudo pip3 install virtualenv
-```
-
-### 1.3. Install PostgreSQL
-
-```sh
-# ~$
 sudo apt install postgresql postgresql-contrib
 ```
 
-For using a *spacial database*, we can install the following extension:
-
-```sh
-# ~$
-# PostGIS is an extension of PostgreSQL
-# that allows to process the spacial data like the Polygons,
-# the Points, ...
-sudo apt install postgis
-```
-
-
-### 1.4 Configuration
-1. Setting virtual environment;
-2. Creating and setting of PostgreSQL database;
-3. Dependencies installation.
-
-#### 1.4.1 Setting virtual environment
-1. In your project root, if you have not already done so,
-run one of the following commands to create a virtual environment.
-
-```sh
-# ~$
-python3 -m venv env
-```
-
-OR
-
-```sh
-# ~$
-virtualenv env -p python3
-```
-
-2. Launch environment
-
-```sh
-# ~$
-source env/bin/activate
-```
-
-3. You must execute the following command to install the basic dependences:
-
-```sh
-# ~$
-make install
-```
-
-#### 1.4.2 Creating and setting of PostgreSQL database
 The following `SQL` command lines allow to create a `PostgreSQL`
 database for your application:
 
 ```sh
-# ~$
 # To connect to PostgreSQL with ROOT user:
 sudo su - postgres
 ```
 
+To connect to default database (postgres):
+
 ```sh
-# ~$
-# To connect to default database (postgres)
 psql
 ```
 
-Given your database name is `cbrdb` and the username is `cobra`.
+Given your database name is `kbrdb` and the username is `kobra`.
 
 ```sql
-CREATE DATABASE cbrdb;
-CREATE USER cobra WITH ENCRYPTED PASSWORD 'your-secret-password-here';
-ALTER ROLE cobra SET client_encoding TO 'utf8';
-ALTER ROLE cobra SET default_transaction_isolation TO 'read committed';
-ALTER ROLE cobra SET timezone TO 'Europe/Paris';
-GRANT ALL PRIVILEGES ON DATABASE cbrdb TO cobra;
+CREATE DATABASE kbrdb;
+CREATE USER kobra WITH ENCRYPTED PASSWORD 'your-secret-password-here';
+ALTER ROLE kobra SET client_encoding TO 'utf8';
+ALTER ROLE kobra SET default_transaction_isolation TO 'read committed';
+ALTER ROLE kobra SET timezone TO 'Europe/Paris';
+GRANT ALL PRIVILEGES ON DATABASE kbrdb TO kobra;
 
 -- configuration for testing database for Django
-ALTER USER cobra CREATEDB;
--- ALTER ROLE cobra SUPERUSER;
+ALTER USER kobra CREATEDB;
+-- ALTER ROLE kobra SUPERUSER;
 
--- connect to cbrdb.
-\c cbrdb;
+-- connect to kbrdb.
+\c kbrdb;
 
 ```
 
 Give the access of the `public` schema to the user account of the application.
 
 ```sql
-GRANT ALL ON SCHEMA public TO cobra;
+GRANT ALL ON SCHEMA public TO kobra;
 ```
 
-For the spacial database, you must create the following extensions on it.
+### 2. Application server
 
-```sql
--- ...
-
--- Only you are using a spatial database
-CREATE EXTENSION postgis;
+```bash
+git clone https://github.com/mokira3d48/kobra.git myapp && cd myapp
+cd myapp;
+sudo rm -r .git;
+git init;  # To create a new instance of git repository
 ```
 
-Finally, disconnect from PostgreSQL by pressing `CTRL + D` twice.
+#### 2.1. OS dependences
 
-
-##### a. .env settings
-1. You have to create a `.env` file in the root of the server
-from the `server/.env_example`:
+##### 2.1.1. Ubuntu
+If you are using *Ubuntu* system,
+open your terminal and run following command lines
+to add the deadsnakes PPA to your system:
 
 ```sh
-cp server/.env_example server/.env
+sudo apt update;
+sudo apt install software-properties-common -y;
+sudo add-apt-repository ppa:deadsnakes/ppa -y
+
 ```
 
-2. Insert the following information into `.env` file:
+Refresh your package list to include the deadsnakes PPA
+and then install Python 3.10:
+
+```sh
+sudo apt update;
+sudo apt install python3.10;
+python3.10 --version
+```
+
+> **NOTE**: Do not change the default Python version of Ubuntu,
+> as it may break system tools that depend on it.
+
+##### 2.2.2. Debian or Kali
+If you are using *Debian* or *Kali linux*,
+in first, install the following dependences on your computer.
+
+```sh
+sudo apt install build-essential zlib1g-dev libncurses5-dev libgdbm-dev libnss3-dev libssl-dev libreadline-dev libffi-dev libsqlite3-dev wget libbz2-dev
+```
+
+And then, we can run the following command to install `pyenv`
+directly via APT on your computer.
+
+```sh
+sudo apt install pyenv
+```
+
+Or run the following command lines, to clone and install
+`pyenv` from its souce code.
+
+```sh
+git clone https://github.com/pyenv/pyenv.git ~/.pyenv;
+ 
+echo 'export PYENV_ROOT="$HOME/.pyenv"' >> ~/.bashrc;
+echo 'export PATH="$PYENV_ROOT/bin:$PATH"' >> ~/.bashrc;
+echo 'eval "$(pyenv init --path)"' >> ~/.bashrc;
+echo 'eval "$(pyenv init -)"' >> ~/.bashrc;
+source ~/.bashrc;
+```
+
+Now, runing the following command line, we can use `pyenv`
+to install the version of Python what we want to install.
+
+```sh
+pyenv install 3.10.18;  # Here, we install Python 3.10.18.
+sudo ln -s $HOME/.pyenv/versions/3.10.18/bin/python3 /usr/local/bin/python3.10
+```
+
+#### 2.2. Repository dependences
+
+##### 2.2.1. Database setting
+
+###### (a) PostgreSQL
+Insert the following information into `server/.env_example` file:
 
 | FIELDS   | VALUES                    | DESCRIPTION            |
 | ------   | --------------------------|------------------------|
-| DB_NAME  | cbrdb                     | Database name.         |
-| USERNAME | cobra                     | User name of database. |
+| DB_NAME  | kbrdb                     | Database name.         |
+| USERNAME | kobra                     | User name of database. |
 | PASSWORD | your-secret-password-here | User password.         |
 | HOST     | 127.0.0.1                 | The access hostname to connect to the database. |
 | PORT     | 5432                      | The access PORT to connect to the database. |
 
-Here are the contents of the file `.env`:
+Here are the contents of the file `server/.env_example`:
 
 ```
-DB_NAME=cbrdb
-USERNAME=cobra
+DB_NAME=kbrdb
+USERNAME=kobra
 PASSWORD=your-secret-password-here
 HOST=127.0.0.1
 PORT=5432
 
-```
+# And others settings...
 
-> If port `5432` does not work, then try port `5433`.
-
-3. Execute the following command line, to apply the configs made in the
-`server/.env` file.
-
-```sh
-source ./server/.env
 ```
 
 
-##### b. Server settings
-<!--
-- Create two directories named `static` and `media`,
-using the following commands:
+##### 2.2.2. Server setting
 
-```sh
-mkdir server/static;\
-mkdir server/media
-```
--->
-
-- Execute the following command lines to make migrations of models into
-database. It's assumed that you are currently in project directory
-root `cobra`.
-
-```sh
-# ~$
-./server/manage.py makemigrations;\
-./server/manage.py migrate
-```
-
-or
-
-```shell
-# ~$
-make migrations
-```
-
-You will get the following result, if all works successfully :
-
-![](./images/migrations.png)
-
-- Then, create a superuser that will be used to connect to admin space.
-
-```sh
-# ~$
-./server/manage.py createsuperuser
-```
-
-Or 
-
-```shell
-# ~$
-make csudo
-```
-
-### Lauching the server
-To start server, you must execute the following command line:
-
-```sh
-# ~$
-./server/manage.py runserver
-```
-
-The result is:
-
-![](./images/runserver.png)
-
-We cant go it at this local host link [](http://127.0.0.1:8000/) or [](http://localhost:8000). <br/>
-You can change the IP address and the port of the server with the following command line:
-
-```sh
-# ~$
-# With this command, we cant make the server listens
-# on the IP address of your local network on the port 8080.
-./server/manage.py runserver 0.0.0.0:8080
-```
-
-Or you can execute the following command contained in `Makefile`.
-
-```sh
-# ~$
-make run
-```
+1. `sudo apt install cmake python3-venv` Install *Cmake* and *Virtual env*;
+2. `python3 -m venv .venv` create a virtual env into directory
+named `.venv`;
+3. `cp server/.env_example server/.env` to create a `.env` file in the root
+of the server from the `server/.env_example`:
+4. `source .venv/bin/activate` activate the virtual environment named `.venv`;
+5. `make install` install the requirements of this package;
+6. `make dev_install` or `pip install -e .` install the package in dev mode
+in virtual environment;
+7. `make messages` to update translations after adding new text
+8. `make build` to build application translation for i18n;
+9. `make migrations` to migrate the data models into the database;
+10. `make sudo` or `manage createsuperuser` to create a super user to access
+to the Admin space;
+11. `make run` to start the application server.
 
 You will see:
 
-![](./images/runserver2.png)
+```
+hostname -I
+192.168.100.6 
+#.venv/bin/python3 server/manage.py runserver 0.0.0.0:8000
+.venv/bin/manage runserver 0.0.0.0:8000
+2025-09-26 15:31:23,452 [    INFO] Loading setting ... (settings.py:31)
+2025-09-26 19:31:23,710 [    INFO] Loading setting ... (settings.py:31)
+Performing system checks...
+
+System check identified no issues (0 silenced).
+September 26, 2025 - 19:31:23
+Django version 5.0, using settings 'core.settings'
+Starting development server at http://0.0.0.0:8000/
+Quit the server with CONTROL-C.
+
+```
 
 All work with successfully ! <br/>
 To access it in this cas, you must execute the following command line,
@@ -358,17 +265,226 @@ ifconfig
 > For the people using **Windows**, use `ipconfig` insted of the command line
 > above.
 
-We cant go it at this local host **http://yourip:8080**.
+We cant go it at this local host **http://localhost:8000**.
 
 ![](./images/swagger.png)
 
 
-### Nettoyage de la base de données PostgreSQL
-Cette section est facultative. Mais, il peut arriver un jour où tu aurras besoin de néttoyer toutes
-les tables de la base de données. Alors, c'est simple. Pour y parvcenir, tu peux simplement supprimer
-tous les schémas que tu as créé. Dans cet exemple, il n'y a qu'un seul schéma que tu vas néttoyer : `public`.
+### Docker onfiguration
+
+To build an image of this project, run the following command line:
+
+```sh
+docker compose build web
+```
+
+And then, run this application in container running the following
+command line:
+
+```sh
+docker compose up
+```
+
+To shutdown the container of this application, open another terminal,
+and then, run the following command line:
+
+```sh
+docker compose down
+```
+
+To remove an image, type the following command with id of the image:
+
+```sh
+docker image ls
+```
+
+```
+                                                                                                                             i Info →   U  In Use
+IMAGE              ID             DISK USAGE   CONTENT SIZE   EXTRA
+kobra-web:latest   342ca1ab61c1       1.95GB          497MB    U 
+```
+
+```sh
+docker rmi -f 342ca1ab61c1
+```
+
+Output:
+
+```
+Untagged: kobra-web:latest
+Deleted: sha256:342ca1ab61c12e06675a5de8c5e1a0ba27cdd6d5afff7e6c37b21b3e8b66dc63
+```
+
+
+## Usage
+
+This Makefile provides a comprehensive set of commands for managing
+a Django web application with internationalization (i18n) support.
+It automates environment setup, dependency management, database operations,
+and server execution.
+
+
+### Directory Configuration
+- `BASE_DIR = server` - Root directory of the Django project
+- `VENV_DIR = .venv` - Python virtual environment directory
+- `VENV_BIN = $(VENV_DIR)/bin` - Path to virtual environment binaries
+
+### Server Configuration
+- `HOST = 0.0.0.0` - Server host address (accessible from any network interface)
+- `PORT = 8000` - Server port number
+
+
+### `install`
+**Purpose**: Complete project setup and dependency installation
+
+**Steps**:
+1. **System Dependencies**: Installs required system packages:
+   - `build-essential`: Compilation tools
+   - `gettext`: Internationalization utilities
+   - `python3-dev`: Python development headers
+   - `libpq-dev`: PostgreSQL development libraries
+   - `libsqlite3-dev`: SQLite development libraries
+   - `python3-django`: Django framework (system package)
+
+2. **Virtual Environment**: Creates Python virtual environment if it doesn't exist
+
+3. **Directory Setup**: Creates essential directories in the project:
+   - `static/` - Static files (CSS, JS, images)
+   - `media/` - User-uploaded files
+   - `locale/` - Translation files
+
+4. **Python Environment**:
+   - Verifies Python version
+   - Upgrades pip to latest version
+   - Installs project dependencies from requirements.txt
+
+**Usage**: `make install`
+
+
+### `dev_install`
+**Purpose**: Development-specific installation (minimal setup)
+
+**Steps**:
+- Verifies Python version
+- Installs current project in editable mode (`-e .`)
+
+**Note**: Pip upgrade is commented out for faster development cycles
+
+**Usage**: `make dev_install`
+
+
+### `messages`
+**Purpose**: Generate translation files for internationalization
+
+**Steps**:
+- Creates/updates message files for:
+  - English (`-l en`)
+  - French (`-l fr`)
+
+**Usage**: `make messages`
+
+### `build`
+**Purpose**: Compile translation files for production use
+
+**Steps**:
+- Compiles `.po` translation files into optimized `.mo` files
+
+**Usage**: `make build`
+
+
+### `migrations`
+**Purpose**: Database migration management
+
+**Steps**:
+1. `makemigrations` - Creates new migration files from model changes
+2. `migrate` - Applies pending migrations to the database
+
+**Usage**: `make migrations`
+
+
+### `sudo`
+**Purpose**: Create Django superuser account
+
+**Steps**:
+- Runs `createsuperuser` command to set up admin user
+
+**Usage**: `make sudo`
+
+
+### `run`
+**Purpose**: Start Django development server
+
+**Steps**:
+1. Displays server IP addresses using `hostname -I`
+2. Starts development server on configured host and port
+
+**Access**: Server will be available at `http://0.0.0.0:8000`
+
+**Usage**: `make run`
+
+
+### `test`
+**Purpose**: Execute project tests
+
+**Steps**:
+- Runs pytest test suite from current directory
+
+**Usage**: `make test`
+
+
+### `shell`
+**Purpose**: Launch Django interactive shell
+
+**Steps**:
+- Starts Django shell with project environment loaded
+
+**Usage**: `make shell`
+
+Usage Examples:
+
+1. Initial Project Setup
+```bash
+make install        # Complete environment setup
+make migrations     # Set up database
+make sudo          # Create admin user
+make run           # Start server
+```
+
+2. Development Workflow
+```bash
+make dev_install    # Quick development setup
+make messages       # Update translations after adding new text
+make build         # Compile translations
+make test          # Run tests
+```
+
+### Important Notes
+
+1. **Virtual Environment**: All Python commands use the project's virtual environment
+2. **Database Support**: Configured for both PostgreSQL (`libpq-dev`) and SQLite (`libsqlite3-dev`)
+3. **Network Access**: Server runs on `0.0.0.0` making it accessible from other devices on the network
+4. **Internationalization**: Supports multi-language content (English and French)
+5. **Django Commands**: Uses `django-admin` for project-agnostic tasks and `manage` for project-specific operations
+
+### Minimal File Structure Assumption
+The Makefile assumes this project structure:
+```
+project-root/
+├── Makefile
+├── requirements.txt
+└── server/          # BASE_DIR
+    ├── manage.py
+    ├── static/
+    ├── media/
+    └── locale/
+```
+
+### PostgreSQL Database Cleanup
+This section is optional. However, there may come a day when you need to clean up all
+the database tables. So, it's simple. To do this, you can simply drop
+all the schemas you created. In this example, there is only one schema you will clean up: `public`.
 <br/>
-Connecte-toi en mode `root` avec les deux commandes suivantes :
+Log in as `root` with the following two commands:
 ```sh
 sudo su - postgres
 ```
@@ -376,35 +492,72 @@ sudo su - postgres
 psql
 ```
 
-Ensuite connecte-toi en tent que `user_name` à `db_name` :
+Then connect as `user_name` to `db_name`:
 ```sh
 \c user_name db_name
 ```
-Maintenant, tu peux supprimer le schéma :
+Now you can drop the schema:
 ```sql
 DROP SCHEMA public CASCADE;
 ```
-Ensuite tu le recrées avec la commande SQL suivante :
+Then recreate it with the following SQL command:
 ```sql
 CREATE SCHEMA public;
 ```
-Et enfin, il ne faut pas oublier de redonner les droits d'accès du schéma à l'utilisateur utilisé par
-ton application pour se connecter.
+And finally, don't forget to grant schema access rights back to the user used by
+your application to connect.
 ```sql
 GRANT ALL ON SCHEMA public TO user_name;
 GRANT ALL ON SCHEMA public TO public;
 ```
 
+## Tests
 
-## Usage
-For the different usages, you can consult the different documentation
-available [here](./docs/README.md).
+To execute the unittest, make sure you have `pytest` package installed,
+and then run the following command line:
 
-1. PostGIS
-2. Cross Origin Resource Sharing
-3. Usage example of Django REST Framework
-4. JWT authentication with Django REST Framework
-5. API documentation programming
-6. Using cache with apiview and viewsets
+```bash
+make test 
+```
+or
 
-<br>
+```shell
+pytest
+```
+
+---
+
+## To contribute
+
+Contributions are welcome! Please follow these steps:
+
+1. Create a new branch for your feature (`git checkout -b feature/my-feature`);
+2. Commit your changes (`git commit -m 'Adding a new feature'`);
+3. Push toward the branch (`git push origin feature/my-feature`);
+4. Create a new *Pull Request* or *Merge Request*.
+
+## Licence
+
+This project is licensed under the MIT License. See the file [LICENSE](LICENSE)
+for more details, contact me please.
+
+## Contact
+
+For your question or suggestion, contact me please:
+
+- **Name** : Your name (Doctor Mokira)
+- **Email** : Your email address (dr.mokira@gmail.com)
+- **GitHub** : [Your GitHub or Gitlab profile](https://github.com/mokira3d48)
+
+<!--
+### Explications des sections : (A supprimer du README.md)
+
+- **Titre et description** : Le titre du projet et une brève description de ce qu'il fait.
+- **Table des matières** : Une liste de sections pour faciliter la navigation.
+- **Installation** : Instructions claires sur la façon d'installer le projet.
+- **Utilisation** : Exemples d'utilisation pour aider les utilisateurs à démarrer rapidement.
+- **Fonctionnalités** : Une liste des fonctionnalités principales du projet.
+- **Tests** : Instructions sur la façon d'exécuter les tests.
+- **Contribuer** : Un guide sur la façon de contribuer au projet.
+- **Licence** : Informations sur la licence du projet.
+- **Contact** : Informations pour contacter le développeur ou l'équipe du projet.
