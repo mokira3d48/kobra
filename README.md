@@ -349,6 +349,34 @@ cbb6dbbf0816   kobra-web   "/app/entrypoint.sh …"   12 minutes ago   Up 12 min
 - To **stop** a running container: `docker stop kobra-web-1`.
 - To **remove** a stopped container: `docker rm kobra-web-1`.
 
+- To access PostgreSQL shell:
+
+```sh
+# ~$
+docker compose exec db psql -U kobra_user -d kobra_db
+```
+
+- To view database logs:
+
+```sh
+# ~$
+docker compose logs db
+```
+
+- To backup database
+
+```sh
+# ~$
+docker compose exec db pg_dump -U kobra_user kobra_db > backup.sql
+```
+
+- To restore database:
+
+```sh
+# ~$
+docker compose exec -T db psql -U kobra_user kobra_db < backup.sql
+```
+
 
 ## Usage
 
