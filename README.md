@@ -275,6 +275,7 @@ We cant go it at this local host **http://localhost:8000**.
 To build an image of this project, run the following command line:
 
 ```sh
+# ~$
 docker compose build web
 ```
 
@@ -282,6 +283,7 @@ And then, run this application in container running the following
 command line:
 
 ```sh
+# ~$
 docker compose up
 ```
 
@@ -295,6 +297,7 @@ docker compose down
 To remove an image, type the following command with id of the image:
 
 ```sh
+# ~$
 docker image ls
 ```
 
@@ -305,6 +308,7 @@ kobra-web:latest   342ca1ab61c1       1.95GB          497MB    U
 ```
 
 ```sh
+# ~$
 docker rmi -f 342ca1ab61c1
 ```
 
@@ -313,6 +317,23 @@ Output:
 ```
 Untagged: kobra-web:latest
 Deleted: sha256:342ca1ab61c12e06675a5de8c5e1a0ba27cdd6d5afff7e6c37b21b3e8b66dc63
+```
+
+To run a command line directly on the container in running:
+
+```shell
+# ~$
+# such as we we try to create a super user.
+docker exec -it kobra-web-1 manage createsuperuser
+```
+
+> `kobra-web-1` represents the name of the container that you can obtain
+> running the following command line: `docker container ls`.
+
+```
+CONTAINER ID   IMAGE       COMMAND                  CREATED          STATUS          PORTS                                         NAMES
+cbb6dbbf0816   kobra-web   "/app/entrypoint.sh …"   12 minutes ago   Up 12 minutes   0.0.0.0:8080->8080/tcp, [::]:8080->8080/tcp   kobra-web-1
+
 ```
 
 
