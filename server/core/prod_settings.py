@@ -23,6 +23,17 @@ DATABASES = {
     }
 }
 
+# Utilisation de DATABASE_URL depuis les variables d'environnement
+# DATABASE_URL = os.environ.get('DATABASE_URL', 'postgres://kobra:your-secret-password-here@1e337bb6feb8:5432/kbrdb')
+#
+# DATABASES = {
+#     'default': dj_database_url.config(
+#         default=DATABASE_URL,
+#         conn_max_age=600,
+#         conn_health_checks=True,
+#     )
+# }
+
 
 # WebSocket specific settings
 # SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')

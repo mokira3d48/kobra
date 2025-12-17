@@ -274,13 +274,10 @@ We cant go it at this local host **http://localhost:8000**.
 
 To build an image of this project, run the following command line:
 
-```sh
-# ~$
-docker build -t kobra-server:1 .
-```
 
 ```bash
 # ~$
+docker network create kobra-network
 
 ```
 
@@ -290,8 +287,8 @@ To run a container from existing built image, you can run the following example:
 # ~$
 docker build -t kobra-server:1 .
 
-docker run -d --rm -p 8000:8000 --name kobra-web-1 -v $(pwd):/app -e "DJANGO_SETTINGS_MODULE=core.prod_settings" kobra-server:1
-docker run -d --rm -p 8000:8000 --name kobra-web-1 -v $(pwd):/app kobra-server:1 python -m manage runserver 0.0.0.0:8000
+docker run -d --rm -p 8000:8000 --name kobra-web-1 --network kobra-network -v $(pwd):/app -e "DJANGO_SETTINGS_MODULE=core.prod_settings" kobra-server:1
+docker run -d --rm -p 8000:8000 --name kobra-web-1 --network kobra-network -v $(pwd):/app kobra-server:1 python -m manage runserver 0.0.0.0:8000
 
 docker exec -it kobra-web-1 python -m manage createsuperuser
 docker exec -it kobra-web-1 python -m manage makemigrations
@@ -304,7 +301,7 @@ docker exec -it  kobra-web-1 bash
 ```bash
 # ~$
 docker build -t postgres-kbrdb:16 database/
-docker run -d --rm --name kbrdb-postgres -p 5432:5432 -e POSTGRES_PASSWORD=master_root_password -v kbrdb_data:/var/lib/postgresql/data postgres-kbrdb:16
+docker run -d --rm --name kbrdb-postgres -p 5432:5432 -e POSTGRES_PASSWORD=master_root_password --network kobra-network -v kbrdb_data:/var/lib/postgresql/data postgres-kbrdb:16
 docker exec db pg_dump -U kobra_user kobra_db > backup.sql
 docker exec -T db psql -U kobra_user kobra_db < backup.sql
 docker exec -it kbrdb-container psql -U kobra -d kbrdb

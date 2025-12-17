@@ -151,25 +151,25 @@ SPECTACULAR_SETTINGS = {
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
-
-# Settings of a basic database with PostgreSQL.
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': os.environ.get('DB_NAME', 'kobra_db'),
-        'USER': os.environ.get('DB_USER', 'kobra_user'),
-        'PASSWORD': os.environ.get('DB_PASSWORD', 'kobra_password'),
-        'HOST': os.environ.get('DB_HOST', 'db'),
-        #: MUST be 'db', not empty or 'localhost'
-        'PORT': os.environ.get('DB_PORT', '5432'),
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
+# Settings of a basic database with PostgreSQL.
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'NAME': os.environ.get('DB_NAME', 'kobra_db'),
+#         'USER': os.environ.get('DB_USER', 'kobra_user'),
+#         'PASSWORD': os.environ.get('DB_PASSWORD', 'kobra_password'),
+#         'HOST': os.environ.get('DB_HOST', 'db'),
+#         #: MUST be 'db', not empty or 'localhost'
+#         'PORT': os.environ.get('DB_PORT', '5432'),
+#     }
+# }
 
 # Settings of a spacial database with PostgreSQL.
 # DATABASES = {
