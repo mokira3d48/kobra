@@ -276,62 +276,54 @@ To build an image of this project, run the following command line:
 
 ```sh
 # ~$
-docker compose build web
+docker build -t kobra-server:1 .
 ```
 
-And then, run this application in container running the following
-command line:
-
-```sh
+```bash
 # ~$
-docker compose up
-```
 
-To shutdown the container of this application, open another terminal,
-and then, run the following command line:
-
-```sh
-docker compose down
-```
-
-To remove an image, type the following command with id of the image:
-
-```sh
-# ~$
-docker image ls
-```
-
-```
-                                                                                                                             i Info →   U  In Use
-IMAGE              ID             DISK USAGE   CONTENT SIZE   EXTRA
-kobra-web:latest   342ca1ab61c1       1.95GB          497MB    U 
-```
-
-```sh
-# ~$
-docker rmi -f 342ca1ab61c1
-```
-
-Output:
-
-```
-Untagged: kobra-web:latest
-Deleted: sha256:342ca1ab61c12e06675a5de8c5e1a0ba27cdd6d5afff7e6c37b21b3e8b66dc63
 ```
 
 To run a container from existing built image, you can run the following example:
 
 ```sh
 # ~$
-docker run -d -it --rm -p 8080:8080 --name kobra-web-1 kobra-web:latest python -m manage runserver 0.0.0.0:8080
+docker build -t kobra-server:1 .
+
+docker run -d --rm -p 8000:8000 --name kobra-web-1 -v $(pwd):/app -e "DJANGO_SETTINGS_MODULE=core.prod_settings" kobra-server:1
+docker run -d --rm -p 8000:8000 --name kobra-web-1 -v $(pwd):/app kobra-server:1 python -m manage runserver 0.0.0.0:8000
+
+docker exec -it kobra-web-1 python -m manage createsuperuser
+docker exec -it kobra-web-1 python -m manage makemigrations
+docker exec -it kobra-web-1 python -m manage migrate
+docker exec -it kobra-web-1 python -m manage collectstatic
+
+docker exec -it  kobra-web-1 bash
+```
+
+```bash
+# ~$
+docker build -t postgres-kbrdb:16 database/
+docker run -d --rm --name kbrdb-postgres -p 5432:5432 -e POSTGRES_PASSWORD=master_root_password -v kbrdb_data:/var/lib/postgresql/data postgres-kbrdb:16
+docker exec db pg_dump -U kobra_user kobra_db > backup.sql
+docker exec -T db psql -U kobra_user kobra_db < backup.sql
+docker exec -it kbrdb-container psql -U kobra -d kbrdb
+
+psql -h localhost -p 5432 -U kobra -d kbrdb
 ```
 
 To execute a command line directly on the container in running:
 
+```bash
+# ~$
+docker stop kobra-web-1
+docker image rm kobra-server:1
+```
+
 ```shell
 # ~$
-# such as we we try to create a super user.
-docker exec -it kobra-web-1 python -m manage createsuperuser
+docker stop kbrdb-postgres
+docker image rm postgres-kbrdb:16
 ```
 
 > `kobra-web-1` represents the name of the container that you can obtain

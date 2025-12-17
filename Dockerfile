@@ -1,36 +1,35 @@
-FROM python:3
+FROM python:3.10
 
-ENV PYTHONUNBUFFERED 1
-ENV PYTHONDONTWRITEBYTECODE 1
-
-RUN mkdir /app
+ENV PYTHONUNBUFFERED=1
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV DJANGO_SETTINGS_MODULE=core.settings
+# ENV PYTHONPATH=/app
 
 WORKDIR /app
-COPY server /app/
-COPY tests /app/
-COPY requirements.txt /app/
-COPY pyproject.toml /app/
-COPY pytest.ini /app/
-
-RUN python -m venv /env
-ENV PATH="/env/bin/:$PATH"
-
-COPY entrypoint.sh /app/entrypoint.sh
+# COPY requirements.txt /app
+# COPY ./server /app
+# COPY setup.py /app
+# COPY README.md /app
+# COPY manage.py /app
+COPY . /app
 
 RUN apt-get update && \
-	apt-get install -y build-essential gettext python3-dev python3-venv libpq-dev libsqlite3-dev python3-django
+	apt-get install -y build-essential gettext python3-dev python3-venv libpq-dev libsqlite3-dev python3-django \
+	&& rm -rf /var/lib/apt/lists/*
 
-RUN python -m pip install --upgrade pip
-RUN mkdir -p server/static/
-RUN mkdir -p server/media/
-RUN mkdir -p server/locale/
-RUN mkdir -p server/logs/
-RUN python --version
-RUN python -m pip install -r requirements.txt
-RUN python -m pip install -e .
+RUN python -m venv /opt/venv
+ENV PATH="/opt/venv/bin:$PATH"
+
+RUN pip install --upgrade pip && pip install -r requirements.txt
+
+# RUN pip3 install git+https://github.com/mokira3d48/kobra.git@dev
+RUN pip install -e .
+
+# Create necessary directories including the one for logs
+RUN mkdir -p server/static server/media server/locale server/logs # /usr/local/lib/python3.10/site-packages/logs
 
 RUN python -m manage compilemessages
-RUN python -m manage collectstatic
-# RUN python -m manage makemigrations
-# RUN python -m manage migrate
 
+EXPOSE 8000
+
+CMD ["gunicorn", "--bind", "0.0.0.0:8000",  "core.wsgi:application", "--workers", "2", "--access-logfile", "-", "--error-logfile", "-", "--log-level", "info"]
