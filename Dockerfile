@@ -7,7 +7,7 @@ ENV DJANGO_SETTINGS_MODULE=core.settings
 
 WORKDIR /app
 # COPY requirements.txt /app
-# COPY ./server /app
+# COPY ./src /app
 # COPY setup.py /app
 # COPY README.md /app
 # COPY manage.py /app
@@ -26,7 +26,7 @@ RUN pip install --upgrade pip && pip install -r requirements.txt
 RUN pip install -e .
 
 # Create necessary directories including the one for logs
-RUN mkdir -p server/static server/media server/locale server/logs # /usr/local/lib/python3.10/site-packages/logs
+RUN mkdir -p src/static src/media src/locale src/logs # /usr/local/lib/python3.10/site-packages/logs
 
 RUN python -m manage compilemessages
 

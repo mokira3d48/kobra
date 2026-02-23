@@ -29,7 +29,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.getenv(
     'SECRET_KEY',
     'django-insecure-(gxw3-6s!-&b#hv*-dg2j=ub%tyd21^!n-s*w6+18&g6obwf@n'
-    )
+)
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = bool(os.getenv('DEBUG', "False"))
@@ -74,6 +74,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'core.middleware.LoguruRequestMiddleware',
 ]
 
 ROOT_URLCONF = 'core.urls'
@@ -262,42 +263,17 @@ SESSION_EXPIRE_AT_BROWSER_CLOSE = False
 # LOGGING SETTINGS
 
 LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': False,
-    'formatters': {
-        'verbose': {
-            'format': '\033[96m{asctime}\033[0m [{levelname}] {module} {message}',
-            'style': '{',
+    "version": 1,
+    "disable_existing_loggers": False,
+    "handlers": {
+        "intercept": {
+            "level": "DEBUG",
+            "class": "core.logging.InterceptHandler",
         },
     },
-    'handlers': {
-        'console': {
-            'class': 'logging.StreamHandler',
-            'formatter': 'verbose',
-        },
-        'file': {
-            'class': 'logging.handlers.RotatingFileHandler',
-            'filename': BASE_DIR / 'logs' / 'leniac_server.log',
-            'maxBytes': 1024 * 1024 * 15,  # 15MB
-            'backupCount': 10,
-            'formatter': 'verbose',
-        },
-    },
-    'root': {
-        'handlers': ['console', 'file'],
-        'level': 'INFO',
-    },
-    'loggers': {
-        'django': {
-            'handlers': ['console', 'file'],
-            'level': 'INFO',
-            'propagate': False,
-        },
-        'chat': {
-            'handlers': ['console', 'file'],
-            'level': 'INFO',
-            'propagate': False,
-        },
+    "loggers": {
+        "": {"handlers": ["intercept"], "level": "DEBUG", "propagate": False},
+        "django": {"handlers": ["intercept"], "level": "INFO", "propagate": False},
+        "django.request": {"handlers": ["intercept"], "level": "WARNING"},
     },
 }
-

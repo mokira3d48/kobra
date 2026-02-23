@@ -1,0 +1,35 @@
+[Unit]
+Description=LenIAC Server
+After=network.target postgresql.service
+Wants=postgresql.service
+
+[Service]
+Type=simple
+User=mokira3d48
+Group=mokira3d48
+WorkingDirectory=/home/mokira3d48/leniac-develop/server
+Environment="PATH=/home/mokira3d48/leniac-develop/.venv/bin"
+Environment="DJANGO_SETTINGS_MODULE=core.prod_settings"
+Environment="PYTHONUNBUFFERED=1"
+
+ExecStart=/home/mokira3d48/leniac-develop/.venv/bin/daphne -b 0.0.0.0 -p 8000 --access-log - --proxy-headers core.asgi:application
+
+Restart=always
+RestartSec=10
+KillSignal=SIGTERM
+TimeoutStopSec=30
+
+# Sécurité
+NoNewPrivileges=true
+PrivateTmp=true
+ReadWritePaths=/home/mokira3d48/leniac-develop/server
+RuntimeDirectory=daphne
+RuntimeDirectoryMode=0755
+
+# Logs
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=leniac-server
+
+[Install]
+WantedBy=multi-user.target
