@@ -3,7 +3,7 @@
 # KOBRA
 
 ![](https://img.shields.io/badge/Python-3.10.8-blue)
-![](https://img.shields.io/badge/Django-5.0-%2344B78B)
+![](https://img.shields.io/badge/Django-5.2-%2344B78B)
 ![](https://img.shields.io/badge/REST%20Framework-3.14.0-%23A30000)
 ![](https://img.shields.io/badge/Swagger-OpenAPI%202.0-%23aaaa00)
 ![](https://img.shields.io/badge/LICENSE-MIT-%2300557f)
