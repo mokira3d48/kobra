@@ -229,3 +229,166 @@ la création de documentation pour vos API DRF. Il offre un excellent
 équilibre entre la génération automatique et la personnalisation fine,
 vous permettant de créer une documentation précise et complète pour votre API.
 
+
+---
+
+Pour documenter une `APIView` de manière exhaustive avec `drf_spectacular`, l'utilisation du décorateur `@extend_schema` est indispensable. Il permet de définir les métadonnées, les types de requête, les réponses de succès et, surtout, de mapper les différents cas d'erreurs.
+
+Voici un exemple complet mettant en œuvre une vue de création de profil avec validation complexe.
+
+---
+
+### Configuration de la Vue
+
+```python
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status, serializers
+from drf_spectacular.utils import extend_schema, OpenApiExample, OpenApiResponse
+
+# 1. Définition des Serializers pour la documentation
+class UserProfileSerializer(serializers.Serializer):
+    username = serializers.CharField(max_length=100)
+    email = serializers.EmailField()
+    age = serializers.IntegerField(min_value=18)
+
+class ErrorResponseSerializer(serializers.Serializer):
+    detail = serializers.CharField()
+
+# 2. Implémentation de l'APIView
+class RegisterProfileView(APIView):
+    
+    @extend_schema(
+        summary="Création d'un profil utilisateur",
+        description="Cette API permet de créer un profil complet. Elle valide l'âge et l'unicité de l'email.",
+        request=UserProfileSerializer,
+        responses={
+            201: OpenApiResponse(
+                response=UserProfileSerializer,
+                description="Profil créé avec succès",
+                examples=[
+                    OpenApiExample(
+                        'Succès',
+                        value={'username': 'mokira_dev', 'email': 'contact@consoleart.io', 'age': 25}
+                    )
+                ]
+            ),
+            400: OpenApiResponse(
+                response=ErrorResponseSerializer,
+                description="Données invalides (ex: âge insuffisant)",
+            ),
+            403: OpenApiResponse(
+                response=ErrorResponseSerializer,
+                description="Permission refusée",
+            ),
+        },
+        tags=['Utilisateurs']
+    )
+    def post(self, request):
+        serializer = UserProfileSerializer(data=request.data)
+        
+        if serializer.is_valid():
+            # Logique de sauvegarde ici
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+```
+
+---
+
+### Points Clés de l'Implémentation
+
+* **`summary` & `description**` : Indispensables pour que l'interface Swagger soit lisible par les humains.
+* **`responses` avec `OpenApiResponse**` : Permet de lister chaque code HTTP (201, 400, 403, etc.) et de lui associer un Serializer spécifique pour que le schéma JSON soit généré automatiquement.
+* **`OpenApiExample`** : Très utile pour fournir des données de test directement dans l'interface, facilitant le travail des développeurs frontend.
+* **`tags`** : Permet de regrouper vos endpoints par thématique (ex: Auth, Products, Billing) dans la documentation.
+
+### Pourquoi utiliser des Serializers d'erreur ?
+
+Même si votre code renvoie parfois un simple dictionnaire, déclarer un `ErrorResponseSerializer` permet à `drf_spectacular` de générer un modèle d'objet "Error" dans la section **Schemas** en bas de page de votre documentation.
+
+---
+
+Pour afficher un exemple de requête directement au niveau du **Serializer**, vous avez deux approches principales. La première consiste à utiliser la classe `Meta` (plus statique), tandis que la seconde utilise des décorateurs `drf_spectacular` (plus flexible).
+
+### 1. Utilisation de `OpenApiExample` dans la Vue (Recommandé)
+
+C'est la méthode la plus propre car elle permet de définir plusieurs scénarios (succès, erreur de validation, cas limite) sans polluer la logique métier du serializer.
+
+```python
+from drf_spectacular.utils import extend_schema, OpenApiExample
+
+class RegisterProfileView(APIView):
+    @extend_schema(
+        request=UserProfileSerializer,
+        examples=[
+            OpenApiExample(
+                'Exemple Valide',
+                summary='Un profil standard',
+                description='Exemple de données pour un utilisateur majeur.',
+                value={
+                    'username': 'console_art',
+                    'email': 'dev@example.com',
+                    'age': 30
+                },
+                request_only=True, # Précise que cet exemple concerne la requête
+            ),
+        ]
+    )
+    def post(self, request):
+        # ... logique ...
+
+```
+
+---
+
+### 2. Utilisation de `ref_name` et `example` dans le Serializer
+
+Si vous voulez que l'exemple soit lié au composant lui-même dans le schéma OpenAPI (section "Components"), vous pouvez ajouter l'argument `example` lors de la déclaration des champs ou utiliser `extend_schema_serializer`.
+
+```python
+from drf_spectacular.utils import extend_schema_serializer
+
+@extend_schema_serializer(
+    examples=[
+        OpenApiExample(
+            'Exemple Serializer',
+            value={
+                'username': 'cyber_doc',
+                'email': 'mokira@tech.io',
+                'age': 28
+            }
+        )
+    ]
+)
+class UserProfileSerializer(serializers.Serializer):
+    username = serializers.CharField(max_length=100, help_text="Nom d'affichage")
+    email = serializers.EmailField()
+    age = serializers.IntegerField(min_value=18)
+
+```
+
+---
+
+### Pourquoi privilégier l'une ou l'autre ?
+
+| Méthode | Avantage | Cas d'usage |
+| --- | --- | --- |
+| **Via `@extend_schema**` | Permet de varier les exemples selon l'endpoint (POST vs PUT). | Documentation précise d'une route spécifique. |
+| **Via `@extend_schema_serializer**` | L'exemple suit le serializer partout où il est utilisé. | Schémas globaux et réutilisables. |
+| **Via `extra_kwargs**` | Très rapide à mettre en place pour un seul champ. | Préciser le format d'un seul champ (ex: format de date). |
+
+### Astuce : Documenter les champs individuels
+
+Pour que l'utilisateur sache exactement quoi envoyer, n'oubliez pas d'utiliser l'argument `help_text` dans vos champs de serializer. `drf_spectacular` le récupère automatiquement pour remplir la colonne "Description" dans Swagger :
+
+```python
+age = serializers.IntegerField(
+    min_value=18, 
+    help_text="L'utilisateur doit avoir au moins 18 ans."
+)
+
+```
+
+Voulez-vous voir comment gérer l'authentification (JWT ou Token) dans cette même documentation pour tester vos requêtes en direct ?
