@@ -262,6 +262,22 @@ class RegisterProfileView(APIView):
         summary="Création d'un profil utilisateur",
         description="Cette API permet de créer un profil complet. Elle valide l'âge et l'unicité de l'email.",
         request=UserProfileSerializer,
+        parameters=[
+            OpenApiParameter(
+                name="num_page",
+                type=OpenApiTypes.INT,
+                location=OpenApiParameter.QUERY,
+                required=False,
+                description=_("Page number"),
+            ),
+            OpenApiParameter(
+                name="page_size",
+                type=OpenApiTypes.INT,
+                location=OpenApiParameter.QUERY,
+                required=False,
+                description=_("Number of elements per page"),
+            ),
+        ],
         responses={
             201: OpenApiResponse(
                 response=UserProfileSerializer,
