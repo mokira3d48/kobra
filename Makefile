@@ -43,6 +43,9 @@ run:
 	#.venv/bin/python3 $(BASE_DIR)/manage.py runserver 0.0.0.0:8000
 	$(VENV_BIN)/manage runserver $(HOST):$(PORT)
 
+schema:
+	$(PYTHON3) $(BASE_DIR)/manage.py spectacular --file schema.yml
+
 test:
 	#.venv/bin/pytest $(BASE_DIR)
 	$(VENV_BIN)/pytest .
