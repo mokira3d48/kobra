@@ -43,8 +43,10 @@ def exception_handler_fn(exc, context):
             response = Response(APIExceptionSerializer(instance=exc).data, status=exc.status_code)
         else:
             if getattr(settings, 'DEBUG') is True:
+                logger.error("{exception}: {message}".format(exception=exc.__class__.__name__, message=str(exc)))
+                api_excp = APIException(detail=str('\n'.join(m for m in exc.args)), code=exc.__class__.__name__)
                 response = Response(
-                    APIExceptionSerializer(instance=exc).data,
+                    APIExceptionSerializer(instance=api_excp).data,
                     status=status.HTTP_500_INTERNAL_SERVER_ERROR
                 )
 
