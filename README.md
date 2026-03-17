@@ -235,18 +235,20 @@ You will see:
 
 ```
 hostname -I
-192.168.100.6 
+172.16.0.151 172.17.0.1 172.18.0.1 
 #.venv/bin/python3 server/manage.py runserver 0.0.0.0:8000
 .venv/bin/manage runserver 0.0.0.0:8000
-2025-09-26 15:31:23,452 [    INFO] Loading setting ... (settings.py:31)
-2025-09-26 19:31:23,710 [    INFO] Loading setting ... (settings.py:31)
+INFO    [2026-03-17 19:01:36.680] Watching for file changes with StatReloader 
 Performing system checks...
 
 System check identified no issues (0 silenced).
-September 26, 2025 - 19:31:23
-Django version 5.0, using settings 'core.settings'
+March 17, 2026 - 19:01:37
+Django version 5.2, using settings 'core.settings'
 Starting development server at http://0.0.0.0:8000/
 Quit the server with CONTROL-C.
+
+WARNING: This is a development server. Do not use it in a production setting. Use a production WSGI or ASGI server instead.
+For more information on production servers see: https://docs.djangoproject.com/en/5.2/howto/deployment/
 
 ```
 
