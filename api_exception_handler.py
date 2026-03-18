@@ -13,7 +13,7 @@ class CustomAPIException(APIException):
         self.code = code if code is not None else self.__class__.default_code
 
 
-class CustomAPIErrorSerializer(serializers.Serializer):
+class APIExceptionSerializer(serializers.Serializer):
     detail = serializers.JSONField(read_only=True)
     code = serializers.CharField(read_only=True)
 
@@ -28,4 +28,4 @@ class NotFound(CustomAPIException):
 
 def exception_handler(response, exc, context) -> Response:
     if isinstance(exc, CustomAPIException):
-        return Response(data=CustomAPIErrorSerializer(instance=exc).data, status=exc.status_code)
+        return Response(data=APIExceptionSerializer(instance=exc).data, status=exc.status_code)
