@@ -12,6 +12,7 @@ from rest_framework.response import Response
 from rest_framework.views import exception_handler
 
 # from your_app.exceptions import exception_handler as your_app_exception_handler
+from v1.container.exceptions import exception_handler as v1_container_exception_handler
 
 
 class CustomAPIException(APIException):
@@ -39,13 +40,13 @@ def print_error_traceback() -> None:
 def exception_handler_fn(exc, context):
     """Function of exception handling in API."""
     response = exception_handler(exc, context)
-    # response = your_app_exception_handler(response, exc, context)
+    response = v1_container_exception_handler(response, exc, context)
 
     if settings.DEBUG:
         print_error_traceback()
     # logger.info("exc: " + str(vars(exc)))
     if response is None:
-        exc = CustomAPIException({'errors': exc.args}, code=exc.__class__.__name__)
+        exc = CustomAPIException(exc.args, code=exc.__class__.__name__)
         ser = CustomAPIExceptionSerializer(instance=exc)
         return Response(ser.data, status=exc.status_code)
     return response
