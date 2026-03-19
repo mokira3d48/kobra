@@ -27,5 +27,7 @@ class NotFound(CustomAPIException):
 
 
 def exception_handler(response, exc, context) -> Response:
+    if response is not None:
+        return response
     if isinstance(exc, CustomAPIException):
         return Response(data=APIExceptionSerializer(instance=exc).data, status=exc.status_code)
